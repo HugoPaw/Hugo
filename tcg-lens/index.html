@@ -2595,10 +2595,10 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
       t=await ocr(
         rawRegion(
           i,f.rect,
-          isFull?.06:.02,
-          isFull?.055:.00,
-          isFull?.86:.92,
-          isFull?.23:.18,
+          isFull ? .06 : .02,
+          isFull ? .055 : .00,
+          isFull ? .86 : .92,
+          isFull ? .23 : .18,
           isFull?2600:2200,
           "raw"
         ),
@@ -2628,10 +2628,10 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
       t=await ocr(
         rawRegion(
           i,f.rect,
-          isFull?.08:.00,
-          isFull?.70:.79,
-          isFull?.62:.66,
-          isFull?.90:.995,
+          isFull ? .08 : .00,
+          isFull ? .70 : .79,
+          isFull ? .62 : .66,
+          isFull ? .90 : .995,
           isFull?3000:2500,
           "raw"
         ),
