@@ -2631,7 +2631,17 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
 
   // Read the collector number from the bottom-left. Prefer this over whole-card OCR.
   const numberAttempts=[];
-  let number=null;
+  const numberCandidates=[];
+  const rememberNumber=n=>{
+    if(!n)return;
+    const key=n.local+"/"+n.total;
+    const old=numberCandidates.find(x=>x.local+"/"+x.total===key);
+    if(!old)numberCandidates.push(n);
+    else if((n.confidence||0)>(old.confidence||0))Object.assign(old,n);
+  };
+  // The normal full-card OCR may already contain the footer, including slashless
+  // OCR such as "20641913" for printed "206/191".
+  rememberNumber(pokemonLooseNumber(titleEvidence));
   // The selected Auto frame is already the expanded card frame from run().
   // Read its tiny bottom-left footer FIRST; this is much cleaner than a broad image crop.
   const numberTries=[
@@ -2651,14 +2661,14 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
     }catch(e){log("Nummer OCR "+t.label+" fehlgeschlagen: "+e.message)}
     const hit=pokemonLooseNumber(txt);
     numberAttempts.push({frame:t.label,text:txt.slice(0,260),hit});
-    if(hit){number=hit;break}
+    rememberNumber(hit);
   }
 
-  // The normal whole-card OCR occasionally already contains a good footer read.
-  if(!number)number=pokemonLooseNumber(titleEvidence);
+  numberCandidates.sort((a,b)=>(b.confidence||0)-(a.confidence||0));
+  const number=numberCandidates[0]||null;
 
-  log("Titel+Nummer OCR",{number,titleAttempts,numberAttempts,titlePreview:titleEvidence.slice(0,700)});
-  if(!number?.local){
+  log("Titel+Nummer OCR",{number,numberCandidates,titleAttempts,numberAttempts,titlePreview:titleEvidence.slice(0,700)});
+  if(!numberCandidates.length){
     log("Titel+Nummer: keine lokale Kartennummer gelesen");
     return null;
   }
@@ -2746,8 +2756,6 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
     return null;
   }
 
-  const localRead=String(number.local||"").replace(/^0+(?=\d)/,"");
-  const totalRead=String(number.total||"").replace(/^0+(?=\d)/,"");
   const scored=[];
 
   for(const h of [...nameHits.values()].slice(0,40)){
@@ -2755,27 +2763,34 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
       const card=await req(TDX+"/"+h.lang+"/cards/"+encodeURIComponent(h.brief.id),{},"Titel+Nummer Karte "+h.brief.id,true);
       const realLocal=String(card?.localId??"").replace(/^0+(?=\d)/,"");
       const official=String(card?.set?.cardCount?.official??"").replace(/^0+(?=\d)/,"");
-
       const titleScore=pokemonTitleEvidenceScore(card?.name||"",titleEvidence);
 
-      let localScore=0,localDist=99;
-      if(/^\d+$/.test(realLocal)&&/^\d+$/.test(localRead)){
-        localDist=editDistance(realLocal,localRead);
-        if(realLocal===localRead)localScore=220;
-        else if(localDist===1)localScore=150;
-        else if(localDist===2&&Math.max(realLocal.length,localRead.length)>=3)localScore=75;
+      let bestNum={number:null,localScore:0,localDist:99,totalScore:0,score:-999};
+      for(const n of numberCandidates){
+        const lr=String(n.local||"").replace(/^0+(?=\d)/,"");
+        const tr=String(n.total||"").replace(/^0+(?=\d)/,"");
+        let localScore=0,localDist=99,totalScore=0;
+
+        if(/^\d+$/.test(realLocal)&&/^\d+$/.test(lr)){
+          localDist=editDistance(realLocal,lr);
+          if(realLocal===lr)localScore=220;
+          else if(localDist===1)localScore=150;
+          else if(localDist===2&&Math.max(realLocal.length,lr.length)>=3)localScore=75;
+        }
+
+        if(tr&&official){
+          if(official===tr)totalScore=220;
+          else if(tr.length<official.length&&official.startsWith(tr))totalScore=150;
+          else if(editDistance(official,tr)===1)totalScore=80;
+          else if(tr.length===official.length)totalScore=-70;
+        }
+
+        const ns=localScore+totalScore+(n.confidence||0)*.05;
+        if(ns>bestNum.score)bestNum={number:n,localScore,localDist,totalScore,score:ns};
       }
 
-      let totalScore=0;
-      if(totalRead&&official){
-        if(official===totalRead)totalScore=220;
-        else if(totalRead.length<official.length&&official.startsWith(totalRead))totalScore=150;
-        else if(editDistance(official,totalRead)===1)totalScore=80;
-        else if(totalRead.length===official.length)totalScore=-70;
-      }
-
-      const score=titleScore+localScore+totalScore;
-      scored.push({...h,card,official,realLocal,titleScore,localScore,localDist,totalScore,score});
+      const score=titleScore+bestNum.localScore+bestNum.totalScore;
+      scored.push({...h,card,official,realLocal,titleScore,...bestNum,numberUsed:bestNum.number,score});
     }catch(e){log("Titel+Nummer Karte "+h.brief.id+" fehlgeschlagen: "+e.message)}
   }
 
@@ -2785,7 +2800,7 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
     localId:x.realLocal,
     set:x.card?.set?.name,
     official:x.official,
-    read:number.local+(number.total?"/"+number.total:""),
+    read:x.numberUsed?(x.numberUsed.local+"/"+x.numberUsed.total):null,
     titleScore:x.titleScore,
     localScore:x.localScore,
     localDist:x.localDist,
@@ -2809,7 +2824,7 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
     return null;
   }
 
-  log("Titel+Nummer SIEGER",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,official:a.official,read:number.local+(number.total?"/"+number.total:""),score:a.score,gap});
+  log("Titel+Nummer SIEGER",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,official:a.official,read:a.numberUsed?(a.numberUsed.local+"/"+a.numberUsed.total):null,score:a.score,gap});
   return{kind:"tcgdex",id:3,score:99,lang:a.lang,card:a.card,method:"Titel + Kartennummer"};
 }
 async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
