@@ -1561,7 +1561,7 @@ async function tcgdexVariantVisualMatch(matcherImg,rows){
   let srcVec;
   try{srcVec=cardVisualVector(src)}catch(e){log("TCGdex Variantenvergleich: Scan-Vektor fehlgeschlagen: "+e.message);return null}
   const ranked=[];
-  for(const q of rows.slice(0,8)){
+  for(const q of rows.slice(0,16)){
     const base=q.card?.image;
     if(!base)continue;
     const urls=[base+"/high.webp",base+"/low.webp",base];
@@ -2585,6 +2585,44 @@ function pokemonTitleEvidenceScore(name,text){
 }
 
 
+
+function pokemonVariantTextEvidence(card,text){
+  const t=norm(text),tokens=unique(t.split(/\s+/).filter(Boolean));
+  let score=0;
+  const evidence=[];
+
+  const fuzzyWord=w=>{
+    if(!w||w.length<4)return false;
+    if(t.includes(w))return true;
+    if(w.length<6)return false;
+    return tokens.some(x=>x.length>=5&&Math.abs(x.length-w.length)<=2&&editDistance(x,w)<=1);
+  };
+
+  const check=(label,name,exactPts,wordPts)=>{
+    const n=norm(name);
+    if(!n)return;
+    if(t.includes(n)){
+      score+=exactPts;
+      evidence.push(label+":"+name);
+      return;
+    }
+    const ws=n.split(/\s+/).filter(x=>x.length>=4);
+    if(!ws.length)return;
+    const hit=ws.filter(fuzzyWord).length;
+    if(hit===ws.length&&ws.length>=2){
+      score+=Math.max(wordPts*2,Math.round(exactPts*.7));
+      evidence.push(label+"~:"+name);
+    }else if(hit){
+      score+=wordPts*hit;
+      evidence.push(label+"~:"+name+"("+hit+"/"+ws.length+")");
+    }
+  };
+
+  for(const a of card?.attacks||[])check("attack",a?.name,38,8);
+  for(const a of card?.abilities||[])check("ability",a?.name,32,7);
+  return{score,evidence};
+}
+
 async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=null){
   const raw=String(text||"");
   const banned=new Set("pokemon basic stage damage weakness resistance defending attacks attack energy retreat trainer card during next turn more after applying your from with takes cutting wind screech".split(" "));
@@ -2599,14 +2637,23 @@ async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=nul
   // Pokémon names are normally on a short line near HP. Put words from short/digit
   // lines first, then use the remaining OCR as backup.
   const lines=raw.split(/\n+/);
+  const addLine=lineRaw=>{
+    const line=norm(lineRaw);
+    if(!line)return;
+    const ws=line.split(/\s+/).filter(Boolean);
+    for(const w of ws)addWord(w);
+    for(let k=0;k<ws.length-1;k++)addWord(ws[k]+ws[k+1]);
+  };
+
+  // Pass 1: title/HP-looking lines first.
   for(const lineRaw of lines){
     const line=norm(lineRaw);
-    if(!line)continue;
-    const ws=line.split(/\s+/).filter(Boolean);
-    if(ws.length<=7||/\d{2,3}/.test(line)){
-      for(const w of ws)addWord(w);
-      for(let k=0;k<ws.length-1;k++)addWord(ws[k]+ws[k+1]);
-    }
+    if(/\d{2,3}/.test(line))addLine(lineRaw);
+  }
+  // Pass 2: short lines, then everything else.
+  for(const lineRaw of lines){
+    const line=norm(lineRaw),ws=line.split(/\s+/).filter(Boolean);
+    if(ws.length<=7)addLine(lineRaw);
   }
   for(const w of norm(raw).split(/\s+/))addWord(w);
 
@@ -2682,16 +2729,33 @@ async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=nul
     return{kind:"tcgdex",id:3,score:99,lang:q.lang,card:q.card,method:"Titel eindeutig"};
   }
 
-  const byNumber=await tcgdexVariantNumberOcr(i,same,scale,rect);
-  if(byNumber){
-    return{kind:"tcgdex",id:3,score:99,lang:byNumber.lang,card:byNumber.card,method:"Titel + Varianten-Nummer"};
+  // Before more OCR, compare attacks/abilities already visible in the normal scan.
+  // This is generic and extremely useful when the tiny collector number is unreadable.
+  const textRank=same.map(x=>({...x,variantEvidence:pokemonVariantTextEvidence(x.card,raw)}))
+    .sort((a,b)=>b.variantEvidence.score-a.variantEvidence.score);
+  log("Titel-Frühroute Varianteninhalt",textRank.slice(0,12).map(x=>({
+    name:x.card?.name,localId:x.card?.localId,set:x.card?.set?.name,
+    score:x.variantEvidence.score,evidence:x.variantEvidence.evidence
+  })));
+  const ta=textRank[0],tb=textRank[1];
+  if(ta&&ta.variantEvidence.score>=30&&ta.variantEvidence.score-(tb?.variantEvidence.score||0)>=18){
+    log("Titel-Frühroute Varianteninhalt Sieger",{name:ta.card?.name,localId:ta.card?.localId,set:ta.card?.set?.name,score:ta.variantEvidence.score});
+    return{kind:"tcgdex",id:3,score:99,lang:ta.lang,card:ta.card,method:"Titel + Karteninhalt"};
   }
 
+  // Visual comparison of only this Pokémon's variants is much cheaper and more
+  // reliable than a global 29k-card matcher.
   const byImage=await tcgdexVariantVisualMatch(matcherImg,same);
   if(byImage){
     return{kind:"tcgdex",id:3,score:98,lang:byImage.lang,card:byImage.card,method:"Titel + Varianten-Bildvergleich"};
   }
 
+  const byNumber=await tcgdexVariantNumberOcr(i,same,scale,rect);
+  if(byNumber){
+    return{kind:"tcgdex",id:3,score:99,lang:byNumber.lang,card:byNumber.card,method:"Titel + Varianten-Nummer"};
+  }
+
+  const byImage=null;
   log("Titel-Frühroute Variante noch nicht sicher",{name:best.name,count:same.length});
   return null;
 }
