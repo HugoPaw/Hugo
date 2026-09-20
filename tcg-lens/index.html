@@ -222,7 +222,7 @@ async function pokemonCandidates(fullText,topText,bottomText){
         if(calls>=16||found.size>45)break;
         calls++;
         try{
-          const a=await req(TDX+"/"+lang+"/cards?attacks.name="+encodeURIComponent(phrase),{},"TCGdex Attacke ""+phrase+"" "+lang,true);
+          const a=await req(TDX+"/"+lang+"/cards?attacks.name="+encodeURIComponent(phrase),{},"TCGdex Attacke \""+phrase+"\" "+lang,true);
           if(a.length&&a.length<=40)add(lang,a,"attackPhrase:"+phrase)
         }catch(e){log("Attacken-Suche "+phrase+" "+lang+" fehlgeschlagen: "+e.message)}
       }
