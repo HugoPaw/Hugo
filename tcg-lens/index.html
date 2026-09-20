@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v14 · Price Fix</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v15 · Title + Year Recovery</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v14 Price Fix",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v15 Title + Year Recovery",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -366,7 +366,7 @@ async function pokemonSetsByOcr(text){
   return found.slice(0,18)
 }
 async function trackingPokemonByCollector(collector,text,setMatches=null){
-  if(!collector||!["numeric","slashFuzzy"].includes(collector.kind)||(collector.confidence||0)<130){
+  if(!collector||!["numeric","slashFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130){
     if(collector)log("Nummer-Treffer nicht streng genug für Direktwahl",collector);
     return null
   }
@@ -400,6 +400,133 @@ async function trackingPokemonByCollector(collector,text,setMatches=null){
   }
   return null
 }
+function cardFormHints(text){
+  const t=norm(text),out=[];
+  for(const f of ["vmax","vstar","gx"," ex "," ex\n"," ex$"]){
+    if(f===" ex "||f===" ex\n"||f===" ex$")continue;
+    if(t.includes(f))out.push(f)
+  }
+  if(/\bvmax\b|max\s+rule|evolves\s+from/i.test(String(text||"")))out.push("vmax");
+  if(/\bvstar\b/i.test(String(text||"")))out.push("vstar");
+  if(/\bgx\b/i.test(String(text||"")))out.push("gx");
+  return unique(out)
+}
+function pokemonNameScore(name,ocrText){
+  const nn=norm(name),ot=norm(ocrText);
+  if(!nn||!ot)return 0;
+  const formStop=new Set(["pokemon","basic","stage","v","vmax","vstar","gx","ex"]);
+  const nw=nn.split(" ").filter(x=>x.length>=4&&!formStop.has(x));
+  const ow=unique(ot.split(" ").filter(x=>x.length>=4));
+  let s=0,hits=0;
+  for(const w of nw){
+    if(ot.includes(w)){s+=46;hits++;continue}
+    let best=99;
+    for(const q of ow){
+      if(Math.abs(q.length-w.length)>3)continue;
+      best=Math.min(best,editDistance(w,q));
+    }
+    const lim=w.length>=9?3:(w.length>=6?2:1);
+    if(best<=lim){s+=best===1?32:(best===2?24:17);hits++}
+  }
+  if(hits&&hits===nw.length)s+=18;
+  const forms=cardFormHints(ocrText);
+  if(/\bvmax\b/.test(nn)&&forms.includes("vmax"))s+=16;
+  if(/\bvstar\b/.test(nn)&&forms.includes("vstar"))s+=16;
+  if(/\bgx\b/.test(nn)&&forms.includes("gx"))s+=12;
+  return s
+}
+function collectorCompatScore(number,collector){
+  if(!collector||!number)return 0;
+  const n=collectorNorm(number),w=collectorNorm(collector.full);
+  if(n===w)return 150;
+  const parts=n.split("/"),wp=w.split("/");
+  if(parts.length===2&&wp.length===2){
+    const a=Number(parts[0]),b=Number(parts[1]),wa=Number(wp[0]),wb=Number(wp[1]);
+    let s=0;
+    if(a&&wa&&a===wa)s+=58;
+    if(b&&wb&&b===wb)s+=42;
+    return s
+  }
+  return 0
+}
+async function trackingPokemonByTitleYear(topText,evidenceText,collector){
+  const year=ocrYear(evidenceText);
+  const titleScoreSeed=pickDistinctive(topText);
+  if(!year||!titleScoreSeed.length){
+    log("Titel+Jahr Recovery übersprungen",{year,titleWords:titleScoreSeed});
+    return null
+  }
+
+  let sets=[];
+  try{sets=arrayFromApi(await req(API+"/3/sets",{},"Pokémon Set-Liste Titel",true))}
+  catch(e){log("Titel+Jahr Set-Liste fehlgeschlagen: "+e.message);return null}
+
+  let yearSets=sets.filter(s=>{
+    const y=Number(String(s.release_date||s.releaseDate||s.release||s.date||"").slice(0,4));
+    return y===year
+  });
+
+  // Manche Supplemental-/Promo-Sets haben unvollständige Datumsfelder.
+  // Nur wenn das exakte Jahr gar nichts liefert, ±1 Jahr zulassen.
+  if(!yearSets.length){
+    yearSets=sets.filter(s=>{
+      const y=Number(String(s.release_date||s.releaseDate||s.release||s.date||"").slice(0,4));
+      return y&&Math.abs(y-year)<=1
+    })
+  }
+  if(!yearSets.length){log("Titel+Jahr: keine Sets",{year});return null}
+
+  log("Titel+Jahr Sets",{year,count:yearSets.length,names:yearSets.slice(0,20).map(s=>s.name||s.set_name)});
+
+  const candidates=[];
+  // Bewusst in kleinen Batches, damit Safari nicht dutzende Requests gleichzeitig startet.
+  for(let p=0;p<yearSets.length;p+=5){
+    const batch=yearSets.slice(p,p+5);
+    const rows=await Promise.all(batch.map(async s=>{
+      const sid=s.id??s.set_id;
+      try{
+        const cards=arrayFromApi(await req(API+"/3/sets/"+sid+"/cards",{},"Titel-Setkarten "+sid,true));
+        return cards.map(card=>({card,set:s,sid}))
+      }catch(e){
+        log("Titel-Setkarten "+sid+" fehlgeschlagen: "+e.message);
+        return[]
+      }
+    }));
+    for(const arr of rows){
+      for(const x of arr){
+        const ns=pokemonNameScore(x.card.name,topText+"\n"+evidenceText);
+        const cs=collectorCompatScore(x.card.number,collector);
+        if(ns>=22||cs>=100)candidates.push({...x,nameScore:ns,collectorScore:cs,score:ns+cs})
+      }
+    }
+    // Sobald Name + exakte Nummer gemeinsam stark sind, unnötige weitere Set-Downloads vermeiden.
+    if(candidates.some(x=>x.nameScore>=40&&x.collectorScore>=140))break
+  }
+
+  candidates.sort((a,b)=>b.score-a.score);
+  log("Titel+Jahr Kandidaten",candidates.slice(0,12).map(x=>({
+    score:x.score,nameScore:x.nameScore,collectorScore:x.collectorScore,
+    name:x.card.name,number:x.card.number,set:x.set.name||x.set.set_name,set_id:x.sid
+  })));
+
+  const best=candidates[0],second=candidates[1];
+  if(!best)return null;
+  const gap=best.score-(second?.score||0);
+
+  // Exakter Sammlerwert + klarer Name ist praktisch eindeutig.
+  if(best.collectorScore>=140&&best.nameScore>=38){
+    log("Titel+Jahr EXAKT",{name:best.card.name,number:best.card.number,set:best.set.name||best.set.set_name,score:best.score,gap});
+    return{product:{...best.card,set_id:best.card.set_id||best.sid},set:best.set,method:"Titel + Jahr + Kartennummer"}
+  }
+  // Ohne perfekte Nummer nur bei sehr deutlichem Namensabstand akzeptieren.
+  if(best.nameScore>=72&&best.score>=92&&gap>=28){
+    log("Titel+Jahr Sieger",{name:best.card.name,number:best.card.number,set:best.set.name||best.set.set_name,score:best.score,gap});
+    return{product:{...best.card,set_id:best.card.set_id||best.sid},set:best.set,method:"Titel + Jahr"}
+  }
+  log("Titel+Jahr noch mehrdeutig",{best:best&&{name:best.card.name,number:best.card.number,score:best.score},gap});
+  return null
+}
+
 async function scanPokemonKnownSet(apiImg,setMatches,collector){
   if(!setMatches?.length)return null;
   const ids=unique(setMatches.slice(0,12).map(x=>x.set.id??x.set.set_id).filter(Boolean));
@@ -408,7 +535,7 @@ async function scanPokemonKnownSet(apiImg,setMatches,collector){
     const d=await req(API+"/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game_id:3,set_ids:ids,limit:10,image:apiImg})},"Scan Pokémon Set-Code");
     const rs=(d.results||[]).slice().sort((a,b)=>Number(b.score||0)-Number(a.score||0));
     if(!rs.length)return null;
-    if(collector&&["numeric","slashFuzzy"].includes(collector.kind)&&(collector.confidence||0)>=130){
+    if(collector&&["numeric","slashFuzzy","noisy3x3"].includes(collector.kind)&&(collector.confidence||0)>=130){
       const wanted=collectorNorm(collector.full);
       const exact=rs.filter(x=>collectorNorm(x.number)===wanted);
       if(exact.length){
@@ -532,7 +659,16 @@ function findCollector(text){
     found.push({full:a+"/"+b,local:a,total:b,confidence,kind:"slashFuzzy",separator:m[2]});
   }
 
-  // 3) Häufige Pokémon-Promo-/Subset-Nummern.
+  // 3) Stark verrauschte 3/3-Nummern. iPhone OCR hängt bei kleinen
+  //    Sammler-Nummern oft noch 1-2 Ziffern an: 017/0738 -> 017/073.
+  //    Das wird nur für exakt 3+3 Ziffern akzeptiert und bewusst hoch bewertet.
+  for(const m of t.matchAll(/\b(\d{3})\s*([\/71IT])\s*(\d{3})\d{1,2}\b/g)){
+    const a=m[1],b=m[3],ai=Number(a),bi=Number(b);
+    if(!(ai>0&&bi>=10&&bi<1000))continue;
+    found.push({full:a+"/"+b,local:a,total:b,confidence:168,kind:"noisy3x3",separator:m[2],raw:m[0]});
+  }
+
+  // 4) Häufige Pokémon-Promo-/Subset-Nummern.
   const knownPrefix=/^(?:GG|SV|XY|BW|SM|SWSH|TG|RC|PR|SH|DP|HGSS)$/;
   for(const m of t.matchAll(/\b([A-Z]{1,5})\s*(\d{1,3})\s*\/\s*([A-Z]{0,5})\s*(\d{1,3})\b/g)){
     const p1=m[1],n1=m[2],p2=m[3],n2=m[4];
@@ -541,7 +677,7 @@ function findCollector(text){
     found.push({full:p1+n1+"/"+p2+n2,local:p1+n1,total:p2+n2,confidence,kind:"prefixed"});
   }
 
-  // 4) O/0 und I/1/L-Verwechslungen als letzter Fallback.
+  // 5) O/0 und I/1/L-Verwechslungen als letzter Fallback.
   for(const m of t.matchAll(/\b([O0I1L]{0,2}[O0I1L\d]{2,4})\s*\/\s*([O0I1L]{0,2}[O0I1L\d]{2,4})\b/g)){
     const fix=v=>v.replace(/O/g,"0").replace(/[IL]/g,"1");
     const a=fix(m[1]),b=fix(m[2]);
@@ -694,6 +830,15 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
 
   const evidenceText=[numberText,bottomText,topText,baseText].join("\n");
   const strongCollector=fine.collector||findCollector(evidenceText);
+
+  // Titel + Copyright-Jahr + Sammler-Nummer ist bei Full-Art/Holo-Karten oft
+  // wesentlich stabiler als das winzige Set-Symbol.
+  const titleProduct=await trackingPokemonByTitleYear(topText,evidenceText,strongCollector);
+  if(titleProduct){
+    const p=titleProduct.product;
+    return{kind:"tracking",id:3,score:99,method:titleProduct.method,top:{product_id:p.id,score:99,name:p.name,number:p.number,set_id:p.set_id}}
+  }
+
   const setMatches=await pokemonSetsByOcr(evidenceText);
   const directProduct=await trackingPokemonByCollector(strongCollector,evidenceText,setMatches);
   if(directProduct){
@@ -737,7 +882,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   log("OCR-Datenbanktreffer nicht sicher genug – globaler Bild-Matcher wird als letzter Fallback genutzt.");
   const r=await sg(3,matcherImg);
   if(r.top&&r.score>=72){
-    if(strongCollector&&["numeric","slashFuzzy"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(r.top.number)!==collectorNorm(strongCollector.full)){
+    if(strongCollector&&["numeric","slashFuzzy","noisy3x3"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(r.top.number)!==collectorNorm(strongCollector.full)){
       log("Globaler Bildtreffer wegen starker OCR-Nummer verworfen",{ocrNumber:strongCollector.full,matchName:r.top.name,matchNumber:r.top.number,matchScore:r.score});
     }else{
       return{kind:"tracking",id:3,score:r.score,method:"Bild-Match",top:r.top}
@@ -745,7 +890,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   }
   const recent=await recentPokemonScan(matcherImg);
   if(recent?.top&&recent.score>=58){
-    if(strongCollector&&["numeric","slashFuzzy"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(recent.top.number)!==collectorNorm(strongCollector.full)){
+    if(strongCollector&&["numeric","slashFuzzy","noisy3x3"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(recent.top.number)!==collectorNorm(strongCollector.full)){
       log("Recent-Set Treffer wegen starker OCR-Nummer verworfen",{ocrNumber:strongCollector.full,matchName:recent.top.name,matchNumber:recent.top.number,matchScore:recent.score});
     }else{
       log("Recent-Set Sieger",{score:recent.score,name:recent.top.name,product_id:recent.top.product_id});
