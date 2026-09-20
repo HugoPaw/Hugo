@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v41 · Gardevoir OCR Lock</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v42 · Variant Number Lock</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v41 Gardevoir OCR Lock",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v42 Variant Number Lock",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -1747,7 +1747,79 @@ async function firstComparableImage(urls,label){
   if(last)log(label+" nicht vergleichbar: "+last.message);
   return null
 }
-async function pokemonCandidateVisualMatch(matcherImg,candidates){
+async function pokemonLockedVariantNumberOcr(i,candidates,preferredRect=null){
+  if(!i||!Array.isArray(candidates)||candidates.length<2)return null;
+  const rows=candidates.map(x=>{
+    const m=String(x.card?.number||"").match(/^(\d{1,3})\s*\/\s*(\d{1,3})$/);
+    return m?{x,local:m[1],total:m[2],full:m[1]+"/"+m[2]}:null
+  }).filter(Boolean);
+  if(rows.length<2)return null;
+
+  const distinct=unique(rows.map(r=>r.full));
+  if(distinct.length<2)return null;
+
+  const scores=new Map(rows.map(r=>[r.full,0])),attempts=[];
+  const frames=[];
+  if(preferredRect)frames.push({label:"Auto",rect:preferredRect});
+  for(const sc of [.96,.90,.84]){
+    const r=centeredCardRect(i,sc);
+    if(!frames.some(f=>Math.abs(f.rect.x-r.x)<3&&Math.abs(f.rect.y-r.y)<3))frames.push({label:"Center "+Math.round(sc*100)+"%",rect:r});
+  }
+
+  const specs=[
+    {name:"Unten links",x0:.00,y0:.78,x1:.58,y1:.995,mode:"raw",psm:6,w:3000},
+    {name:"Unten links Kontrast",x0:.00,y0:.80,x1:.64,y1:.998,mode:"contrast",psm:6,w:3200},
+    {name:"Footer schmal",x0:.00,y0:.88,x1:.55,y1:.998,mode:"raw",psm:7,w:3400},
+    {name:"Footer invert",x0:.00,y0:.84,x1:.62,y1:.998,mode:"invert",psm:6,w:3200}
+  ];
+
+  for(const f of frames.slice(0,4)){
+    for(const q of specs){
+      let t="";
+      try{
+        t=await ocr(
+          rawRegion(i,f.rect,q.x0,q.y0,q.x1,q.y1,q.w,q.mode),
+          "OCR Varianten-Lock "+f.label+" "+q.name,
+          {tessedit_pageseg_mode:q.psm,tessedit_char_whitelist:"0123456789/ "}
+        )
+      }catch(e){log("Varianten-Lock OCR fehlgeschlagen: "+e.message)}
+      const clean=String(t||"").replace(/[Oo]/g,"0").replace(/[Il]/g,"1");
+      const stream=clean.replace(/\D/g,"");
+      const hit=[];
+      for(const r of rows){
+        let sc=0;
+        if(new RegExp("(^|\\D)0*"+r.local+"\\s*/\\s*0*"+r.total+"(\\D|$)").test(clean))sc+=20;
+        if(stream.includes(r.local+r.total))sc+=12;
+        if(stream.includes(("0"+r.local).slice(-3)+("0"+r.total).slice(-3)))sc+=10;
+        if(new RegExp("(^|\\D)0*"+r.local+"(\\D|$)").test(clean))sc+=5;
+        if(new RegExp("(^|\\D)0*"+r.total+"(\\D|$)").test(clean))sc+=2;
+        if(sc){
+          scores.set(r.full,(scores.get(r.full)||0)+sc);
+          hit.push({number:r.full,score:sc})
+        }
+      }
+      attempts.push({frame:f.label,region:q.name,text:clean.slice(0,260),hit});
+      const ord=[...scores.entries()].sort((a,b)=>b[1]-a[1]);
+      if(ord[0]?.[1]>=12&&ord[0][1]-(ord[1]?.[1]||0)>=6)break;
+    }
+    const ord=[...scores.entries()].sort((a,b)=>b[1]-a[1]);
+    if(ord[0]?.[1]>=12&&ord[0][1]-(ord[1]?.[1]||0)>=6)break;
+  }
+
+  const ord=[...scores.entries()].sort((a,b)=>b[1]-a[1]);
+  log("Varianten-Lock Auswertung",{numbers:distinct,scores:Object.fromEntries(scores),attempts});
+  const best=ord[0],second=ord[1];
+  if(best&&best[1]>=10&&best[1]-(second?.[1]||0)>=6){
+    const winner=rows.find(r=>r.full===best[0])?.x;
+    if(winner){
+      log("Varianten-Lock Sieger",{name:winner.card.name,number:winner.card.number,score:best[1],gap:best[1]-(second?.[1]||0)});
+      return winner
+    }
+  }
+  return null
+}
+
+async function pokemonCandidateVisualMatch(matcherImg,candidates,strongLock=false){
   if(!matcherImg||!candidates?.length)return null;
   let src;
   try{src=await loadCardImage(matcherImg)}catch(e){log("Lokaler Kandidatenvergleich: Scanbild nicht lesbar: "+e.message);return null}
@@ -1783,13 +1855,19 @@ async function pokemonCandidateVisualMatch(matcherImg,candidates){
   // Variant selection must be conservative. Weak visual similarity can confuse
   // normal vs rainbow/secret printings, especially with glare or cropped photos.
   if(!b||(a.dist<=.84&&(gap>=.07||ratio<=.90))){
-    log("Lokaler Varianten-Sieger",{name:a.card.name,number:a.card.number,distance:a.dist,gap,ratio});
+    log("Lokaler Varianten-Sieger",{name:a.card.name,number:a.card.number,distance:a.dist,gap,ratio,strongLock:false});
+    return a
+  }
+  // Wenn Set, Kartenname und Form bereits unabhängig gesperrt sind und nur noch
+  // zwei Varianten übrig sind, darf der Bildvergleich etwas enger entscheiden.
+  if(strongLock&&candidates.length===2&&a.dist<=.80&&(gap>=.04||ratio<=.945)){
+    log("Lokaler Varianten-Sieger mit Set-Lock",{name:a.card.name,number:a.card.number,distance:a.dist,gap,ratio,strongLock:true});
     return a
   }
   log("Lokaler Variantenvergleich noch knapp",{best:{name:a.card.name,number:a.card.number,distance:a.dist},second:{name:b.card.name,number:b.card.number,distance:b.dist},gap,ratio});
   return null
 }
-async function pokemonSetNameRecovery(text,matcherImg,setMatches,collector=null){
+async function pokemonSetNameRecovery(text,matcherImg,setMatches,collector=null,scanImage=null,scanRect=null){
   const seeds=pokemonNameSeeds(text);
   if(!setMatches?.length){log("Set+Name Recovery übersprungen",{seeds,setCount:0});return null}
   const hintText=text+"\n"+setMatches.map(x=>x.nameHint||"").filter(Boolean).join("\n");
@@ -1839,9 +1917,22 @@ async function pokemonSetNameRecovery(text,matcherImg,setMatches,collector=null)
     return{top:{product_id:x.card.id,score:97,name:x.card.name,number:x.card.number,set_id:x.sid},score:97,method:"Set + OCR-Kartenname + Form"}
   }
 
+  // Sobald Set + Kartenname + Form nur noch wenige Varianten lassen, lies gezielt
+  // die winzige Nummer unten links. Das ist zuverlässiger als ein globaler Bildscan.
+  if(scanImage&&visualPool.length<=6){
+    const numberLock=await pokemonLockedVariantNumberOcr(scanImage,visualPool,scanRect);
+    if(numberLock){
+      const x=numberLock;
+      return{top:{product_id:x.card.id,score:99,name:x.card.name,number:x.card.number,set_id:x.sid},score:99,method:"Set + OCR-Kartenname + Varianten-Nr."}
+    }
+  }
+
+  const baseNames=unique(visualPool.map(x=>norm(String(x.card.name||"").replace(/\([^)]*\)/g,"").replace(/\bsecret\b/g,"").trim())));
+  const strongVariantLock=visualPool.length===2&&baseNames.length===1&&visualPool.every(x=>x.nameScore>=70&&x.formScore>0&&x.setScore>=180);
+
   // Compare the user's crop locally with official images of only these few candidates.
   // This can distinguish e.g. normal / secret / alternate-art even when /scan returns no hash hit.
-  const visual=await pokemonCandidateVisualMatch(matcherImg,visualPool);
+  const visual=await pokemonCandidateVisualMatch(matcherImg,visualPool,strongVariantLock);
   if(visual){
     const x=visual;
     return{top:{product_id:x.card.id,score:96,name:x.card.name,number:x.card.number,set_id:x.sid},score:96,method:"Set + OCR-Kartenname + lokaler Bildvergleich"}
@@ -1933,7 +2024,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   const quickSignature=pokemonSignatureSetMatches(baseText);
   if(quickSignature.length){
     log("Schnellroute: Attacken-Signatur",quickSignature.map(x=>({set:x.set.name,id:x.set.id,seeds:pokemonNameSeeds(baseText)})));
-    const quickName=await pokemonSetNameRecovery(baseText,apiImg,quickSignature,null);
+    const quickName=await pokemonSetNameRecovery(baseText,apiImg,quickSignature,null,i,rect);
     if(quickName)return{kind:"tracking",id:3,score:quickName.score,method:"Schnellroute · "+quickName.method,top:quickName.top};
     log("Schnellroute kennt Name/Set, Variante aber noch nicht sicher – Detail-OCR folgt.");
   }
@@ -1987,7 +2078,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   const signatureMatches=pokemonSignatureSetMatches(evidenceText);
   if(signatureMatches.length){
     log("Attacken-Signatur Set-Hinweis",signatureMatches.map(x=>({set:x.set.name,id:x.set.id})));
-    const sigName=await pokemonSetNameRecovery(evidenceText,matcherImg,signatureMatches,strongCollector);
+    const sigName=await pokemonSetNameRecovery(evidenceText,matcherImg,signatureMatches,strongCollector,i,detailRect);
     if(sigName)return{kind:"tracking",id:3,score:sigName.score,method:"Attacken-Signatur + "+sigName.method,top:sigName.top};
     const sigScan=await scanPokemonKnownSet(matcherImg,signatureMatches,strongCollector,evidenceText);
     if(sigScan)return{kind:"tracking",id:3,score:sigScan.score,method:"Attacken-Signatur + "+sigScan.method,top:sigScan.top};
@@ -2011,7 +2102,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   // Set code + readable card name is safer than a noisy collector number.
   // Example: DRI + "Zam azenta" must beat an OCR hallucination such as 320/752.
   if(setMatches.length){
-    const setNameProduct=await pokemonSetNameRecovery(evidenceText,matcherImg,setMatches,strongCollector);
+    const setNameProduct=await pokemonSetNameRecovery(evidenceText,matcherImg,setMatches,strongCollector,i,detailRect);
     if(setNameProduct){
       return{kind:"tracking",id:3,score:setNameProduct.score,method:"Set-Code + "+setNameProduct.method,top:setNameProduct.top,displayName:cleanPokemonTitlePhrase(topText)||null}
     }
