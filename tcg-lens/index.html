@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v12 · Exact Set + Number</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v13 · Fuzzy Number + Set</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v12 Exact Set + Number",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v13 Fuzzy Number + Set",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -198,9 +198,6 @@ function collectorOcrScore(t){
   return s
 }
 async function pokemonFineOcr(i,rect,scale=.96){
-  // Bei Full-Art/Holo-Karten ist der grobe Center-Crop oft noch deutlich
-  // größer als die eigentliche Karte. Für die Sammler-Nummer testen wir
-  // deshalb einige engere Kartenrahmen und lassen die Nummer selbst entscheiden.
   const frames=[];
   if(rect){
     frames.push({label:"Auto-Rahmen",rect});
@@ -214,21 +211,38 @@ async function pokemonFineOcr(i,rect,scale=.96){
   }
 
   let best={text:"",score:-1,label:"",frameRect:frames[0]?.rect||rect,collector:null};
+  const evidence=[],collectorHits=[];
   for(const f of frames){
     const tries=[
-      {label:f.label+" Ziffern",data:rawRegion(i,f.rect,.00,.845,.56,.975,2500,"contrast"),cfg:{tessedit_pageseg_mode:6,tessedit_char_whitelist:"0123456789/ "}},
-      {label:f.label+" Code",data:rawRegion(i,f.rect,.00,.825,.62,.982,2300,"raw"),cfg:{tessedit_pageseg_mode:6,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/- "}},
+      {label:f.label+" Ziffern",data:rawRegion(i,f.rect,.00,.845,.56,.975,2500,"contrast"),cfg:{tessedit_pageseg_mode:6,tessedit_char_whitelist:"0123456789/71IT "}},
+      {label:f.label+" Code",data:rawRegion(i,f.rect,.00,.825,.62,.982,2400,"raw"),cfg:{tessedit_pageseg_mode:6,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/- "}},
       {label:f.label+" Tief",data:rawRegion(i,f.rect,.00,.885,.62,.997,2500,"contrast"),cfg:{tessedit_pageseg_mode:6,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/- "}}
     ];
     for(const t of tries){
       let text="";
       try{text=await ocr(t.data,"OCR "+t.label,t.cfg)}catch(e){log(t.label+" fehlgeschlagen: "+e.message)}
+      if(text)evidence.push(text);
       const collector=findCollector(text),score=collectorOcrScore(text);
+      if(collector)collectorHits.push({...collector,source:t.label,frameRect:f.rect});
       log(t.label+" Bewertung",{score,collector,text:text.slice(0,500)});
       if(score>best.score)best={text,score,label:t.label,frameRect:f.rect,collector};
-      if(collector&&(collector.confidence||0)>=145)break;
+      if(collector&&(collector.confidence||0)>=150)break;
     }
-    if(best.collector&&(best.collector.confidence||0)>=145)break;
+    if(best.collector&&(best.collector.confidence||0)>=150)break;
+  }
+
+  // Wähle die stärkste Nummer aus ALLEN Nummern-OCRs.
+  if(collectorHits.length){
+    const grouped=new Map();
+    for(const x of collectorHits){
+      const old=grouped.get(x.full);
+      if(!old||x.confidence>old.confidence)grouped.set(x.full,{...x});
+      else old.confidence+=5;
+    }
+    const ranked=[...grouped.values()].sort((a,b)=>b.confidence-a.confidence);
+    best.collector=ranked[0];
+    if(ranked[0]?.frameRect)best.frameRect=ranked[0].frameRect;
+    log("Sammler-Nummer Kandidaten",ranked.slice(0,6).map(x=>({full:x.full,confidence:x.confidence,kind:x.kind,source:x.source})));
   }
 
   const titleTries=[
@@ -242,8 +256,9 @@ async function pokemonFineOcr(i,rect,scale=.96){
       if(words(z).length>words(title).length)title=z;
     }catch(e){log(t.label+" fehlgeschlagen: "+e.message)}
   }
-  log("Pokémon Fein-OCR",{numberText:best.text,titleText:title,collector:best.collector,frame:rectStats(i,best.frameRect),winner:best.label});
-  return{numberText:best.text,titleText:title,collector:best.collector,frameRect:best.frameRect}
+  const allNumberText=evidence.join("\n");
+  log("Pokémon Fein-OCR",{numberText:allNumberText,titleText:title,collector:best.collector,frame:rectStats(i,best.frameRect),winner:best.label});
+  return{numberText:allNumberText,titleText:title,collector:best.collector,frameRect:best.frameRect}
 }
 function setHints(text){
   const u=String(text||"").toUpperCase().replace(/[|\\]/g," ");
@@ -267,6 +282,10 @@ function arrayFromApi(d){
   for(const k of ["sets","products","cards","results","data"])if(Array.isArray(d?.[k]))return d[k];
   return[];
 }
+function collectorLikeText(line){
+  const u=String(line||"").toUpperCase();
+  return /\d{2,3}\s*\/\s*\d{2,3}/.test(u)||/\d{3}\s*[71IT]\s*\d{3}/.test(u)
+}
 function setCodeCandidates(text){
   const u=String(text||"").toUpperCase().replace(/[|\\]/g," ");
   const stop=new Set(["BASIC","ENERGY","POKEMON","NINTENDO","CREATURES","GAME","FREAK","RARE","ILLUS","RETREAT","WEAKNESS","RESISTANCE","ATTACK","DAMAGE","THIS","YOUR","FROM","WITH","CARD","CARDS"]);
@@ -281,14 +300,13 @@ function setCodeCandidates(text){
   };
   const lines=u.split(/\n+/);
   for(const line of lines){
-    const near=/\d{2,3}\s*\/\s*\d{2,3}/.test(line);
-    if(!near)continue;
+    if(!collectorLikeText(line))continue;
     for(const m of line.matchAll(/\b[A-Z0-9-]{2,6}\b/g))add(m[0],true);
   }
   for(const line of lines){
     for(const m of line.matchAll(/\b[A-Z0-9-]{3,5}\b/g))add(m[0],false);
   }
-  return out.slice(0,14)
+  return out.slice(0,18)
 }
 function setCodeVariants(code){
   const v=String(code||"").toUpperCase().replace(/[^A-Z0-9-]/g,""),a=[v];
@@ -299,75 +317,110 @@ function setCodeVariants(code){
 function setAbbr(s){
   return String(s?.abbr??s?.set_abbr??s?.abbreviation??s?.code??s?.short_code??s?.shortName??"").toUpperCase().replace(/[^A-Z0-9-]/g,"")
 }
+function editDistance(a,b){
+  a=String(a||"");b=String(b||"");
+  const prev=Array.from({length:b.length+1},(_,i)=>i),cur=new Array(b.length+1);
+  for(let i=1;i<=a.length;i++){
+    cur[0]=i;
+    for(let j=1;j<=b.length;j++)cur[j]=Math.min(cur[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    for(let j=0;j<=b.length;j++)prev[j]=cur[j];
+  }
+  return prev[b.length]
+}
+function ocrYear(text){
+  const ys=[...String(text||"").matchAll(/\b(20\d{2})\b/g)].map(m=>Number(m[1])).filter(y=>y>=1996&&y<=2035);
+  return ys.length?ys[ys.length-1]:null
+}
 async function pokemonSetsByOcr(text){
   const codes=setCodeCandidates(text);
   if(!codes.length){log("Kein Set-Code sicher aus OCR gelesen.");return[]}
   let sets=[];
   try{sets=arrayFromApi(await req(API+"/3/sets",{},"Pokémon Set-Liste",true))}catch(e){log("Pokémon Set-Liste fehlgeschlagen: "+e.message);return[]}
-  const found=[],keys=new Set();
-  for(const c of codes){
-    const vars=setCodeVariants(c.code);
-    for(const s of sets){
-      const ab=setAbbr(s);
-      if(!ab||!vars.includes(ab))continue;
-      const sid=s.id??s.set_id;if(!sid)continue;
-      const k=String(sid);if(keys.has(k))continue;keys.add(k);
-      found.push({set:s,code:c.code,abbr:ab,nearCollector:c.nearCollector});
+  const year=ocrYear(text),bestBySet=new Map();
+  for(const cand of codes){
+    for(const raw of setCodeVariants(cand.code)){
+      for(const s of sets){
+        const ab=setAbbr(s);if(!ab)continue;
+        const d=editDistance(raw,ab),maxLen=Math.max(raw.length,ab.length);
+        let score=-1;
+        if(d===0)score=120;
+        else if(cand.nearCollector&&d===1&&maxLen<=5)score=92;
+        else if(cand.nearCollector&&d===2&&raw.length>=3&&raw.length<=4&&ab.length>=3&&ab.length<=4)score=66;
+        else continue;
+        if(cand.nearCollector)score+=18;
+        const sy=Number(String(s.release_date||s.releaseDate||s.release||s.date||"").slice(0,4));
+        if(year&&sy){
+          if(sy===year)score+=12;
+          else if(Math.abs(sy-year)===1)score+=4;
+          else if(Math.abs(sy-year)>=4)score-=6;
+        }
+        const sid=s.id??s.set_id;if(!sid)continue;
+        const old=bestBySet.get(String(sid));
+        const hit={set:s,code:cand.code,abbr:ab,distance:d,nearCollector:cand.nearCollector,score};
+        if(!old||score>old.score)bestBySet.set(String(sid),hit);
+      }
     }
   }
-  found.sort((a,b)=>(Number(b.nearCollector)-Number(a.nearCollector)));
-  log("Set-Code Treffer",found.slice(0,8).map(x=>({ocr:x.code,abbr:x.abbr,nearCollector:x.nearCollector,id:x.set.id??x.set.set_id,name:x.set.name||x.set.set_name})));
-  return found.slice(0,6)
+  const found=[...bestBySet.values()].sort((a,b)=>b.score-a.score);
+  log("Set-Code Treffer",found.slice(0,18).map(x=>({ocr:x.code,abbr:x.abbr,distance:x.distance,nearCollector:x.nearCollector,score:x.score,id:x.set.id??x.set.set_id,name:x.set.name||x.set.set_name})));
+  return found.slice(0,18)
 }
 async function trackingPokemonByCollector(collector,text,setMatches=null){
-  if(!collector||collector.kind!=="numeric"||(collector.confidence||0)<145){
+  if(!collector||!["numeric","slashFuzzy"].includes(collector.kind)||(collector.confidence||0)<130){
     if(collector)log("Nummer-Treffer nicht streng genug für Direktwahl",collector);
     return null
   }
   const matches=setMatches||await pokemonSetsByOcr(text);
-  const strict=matches.filter(x=>x.nearCollector);
-  if(!strict.length){log("Kein Set-Code direkt neben sicherer Kartennummer – keine 98%-Direktwahl.");return null}
-  const wanted=collectorNorm(collector.full);
-  const hits=[];
-  for(const m of strict.slice(0,4)){
+  if(!matches.length){log("Keine plausiblen Set-Kandidaten aus OCR – keine Direktwahl.");return null}
+  const wanted=collectorNorm(collector.full),hits=[];
+  for(const m of matches.slice(0,18)){
     const sid=m.set.id??m.set.set_id;
     try{
       const cards=arrayFromApi(await req(API+"/3/sets/"+sid+"/cards",{},"Set-Karten "+sid,true));
       for(const p of cards){
-        if(collectorNorm(p.number)===wanted)hits.push({product:p,set:m.set,code:m.abbr})
+        if(collectorNorm(p.number)===wanted)hits.push({product:p,set:m.set,match:m})
       }
     }catch(e){log("Set-Karten "+sid+" fehlgeschlagen: "+e.message)}
   }
-  const uniq=[...new Map(hits.map(x=>[x.product.id,x])).values()];
+  const uniq=[...new Map(hits.map(x=>[x.product.id,x])).values()].sort((a,b)=>b.match.score-a.match.score);
+  log("Exakte Nummer in Set-Kandidaten",uniq.slice(0,10).map(x=>({name:x.product.name,number:x.product.number,set:x.set.name||x.set.set_name,setAbbr:x.match.abbr,setScore:x.match.score,distance:x.match.distance})));
   if(uniq.length===1){
     const x=uniq[0];
-    log("EXAKTER Set+Nummer Treffer",{set:x.set.name||x.set.set_name,setCode:x.code,product_id:x.product.id,name:x.product.name,number:x.product.number});
-    return{...x,method:"Set-Code + Kartennummer"}
+    log("EXAKTER Set+Nummer Treffer",{set:x.set.name||x.set.set_name,setCode:x.match.abbr,ocrCode:x.match.code,distance:x.match.distance,product_id:x.product.id,name:x.product.name,number:x.product.number});
+    return{...x,method:x.match.distance===0?"Set-Code + Kartennummer":"Fuzzy Set-Code + Kartennummer"}
   }
-  if(uniq.length>1)log("Set+Nummer noch mehrdeutig",uniq.map(x=>({name:x.product.name,number:x.product.number,set:x.set.name||x.set.set_name})));
+  if(uniq.length>1){
+    const gap=uniq[0].match.score-uniq[1].match.score;
+    if(uniq[0].match.score>=100&&gap>=22){
+      const x=uniq[0];
+      log("Set+Nummer Sieger über Set-Code",{name:x.product.name,set:x.set.name||x.set.set_name,score:x.match.score,gap});
+      return{...x,method:x.match.distance===0?"Set-Code + Kartennummer":"Fuzzy Set-Code + Kartennummer"}
+    }
+    log("Set+Nummer noch mehrdeutig",uniq.slice(0,8).map(x=>({name:x.product.name,number:x.product.number,set:x.set.name||x.set.set_name,setScore:x.match.score})));
+  }
   return null
 }
 async function scanPokemonKnownSet(apiImg,setMatches,collector){
   if(!setMatches?.length)return null;
-  const ids=unique(setMatches.map(x=>x.set.id??x.set.set_id).filter(Boolean)).slice(0,6);
+  const ids=unique(setMatches.slice(0,12).map(x=>x.set.id??x.set.set_id).filter(Boolean));
   if(!ids.length)return null;
   try{
     const d=await req(API+"/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game_id:3,set_ids:ids,limit:10,image:apiImg})},"Scan Pokémon Set-Code");
     const rs=(d.results||[]).slice().sort((a,b)=>Number(b.score||0)-Number(a.score||0));
     if(!rs.length)return null;
-    if(collector&&collector.kind==="numeric"&&(collector.confidence||0)>=145){
+    if(collector&&["numeric","slashFuzzy"].includes(collector.kind)&&(collector.confidence||0)>=130){
       const wanted=collectorNorm(collector.full);
       const exact=rs.filter(x=>collectorNorm(x.number)===wanted);
       if(exact.length){
         const best=exact[0];
         log("Set-Scan + Nummer bestätigt",{name:best.name,number:best.number,rawScore:best.score,set_ids:ids});
-        return{top:best,score:Math.max(97,Number(best.score||0)),method:"Set-Code + Kartennummer + Bild"}
+        return{top:best,score:Math.max(97,Number(best.score||0)),method:"Set-Kandidaten + Kartennummer + Bild"}
       }
     }
     const top=rs[0],second=rs[1],gap=Number(top.score||0)-Number(second?.score||0);
     if(Number(top.score||0)>=58&&gap>=6){
       log("Set-Scan Sieger",{name:top.name,number:top.number,score:top.score,gap,set_ids:ids});
-      return{top,score:Number(top.score||0),method:"Set-Code + Bild"}
+      return{top,score:Number(top.score||0),method:"Set-Kandidaten + Bild"}
     }
     log("Set-Scan nicht eindeutig",rs.slice(0,5).map(x=>({name:x.name,number:x.number,score:x.score})));
   }catch(e){log("Set-Scan fehlgeschlagen: "+e.message)}
@@ -458,7 +511,7 @@ function findCollector(text){
   const t=String(text||"").toUpperCase().replace(/[|\\]/g,"/");
   const found=[];
 
-  // Bevorzugt die bei modernen Pokémon-Karten übliche reine Nummer 091/086.
+  // 1) Saubere Sammler-Nummer, z. B. 091/086.
   for(const m of t.matchAll(/\b(\d{2,3})\s*\/\s*(\d{2,3})\b/g)){
     const a=m[1],b=m[2],ai=Number(a),bi=Number(b);
     let confidence=118;
@@ -469,8 +522,17 @@ function findCollector(text){
     found.push({full:a+"/"+b,local:a,total:b,confidence,kind:"numeric"});
   }
 
-  // Häufige Pokémon-Promo-/Subset-Nummern bleiben erlaubt, aber werden
-  // niedriger gewichtet als eine saubere rein numerische Sammler-Nummer.
+  // 2) Sehr typischer iPhone/OCR-Fehler: der Slash wird als 7/1/I/T gelesen.
+  //    Beispiel aus dem echten Scan: 0917086 -> 091/086.
+  for(const m of t.matchAll(/\b(\d{3})\s*([71IT])\s*(\d{3})\b/g)){
+    const a=m[1],b=m[3],ai=Number(a),bi=Number(b);
+    if(!(ai>0&&bi>=10&&bi<1000))continue;
+    let confidence=136;
+    if(ai<1000&&bi<500)confidence+=5;
+    found.push({full:a+"/"+b,local:a,total:b,confidence,kind:"slashFuzzy",separator:m[2]});
+  }
+
+  // 3) Häufige Pokémon-Promo-/Subset-Nummern.
   const knownPrefix=/^(?:GG|SV|XY|BW|SM|SWSH|TG|RC|PR|SH|DP|HGSS)$/;
   for(const m of t.matchAll(/\b([A-Z]{1,5})\s*(\d{1,3})\s*\/\s*([A-Z]{0,5})\s*(\d{1,3})\b/g)){
     const p1=m[1],n1=m[2],p2=m[3],n2=m[4];
@@ -479,7 +541,7 @@ function findCollector(text){
     found.push({full:p1+n1+"/"+p2+n2,local:p1+n1,total:p2+n2,confidence,kind:"prefixed"});
   }
 
-  // OCR verwechselt 0/1 gelegentlich mit O/I/L. Nur als letzter Fallback.
+  // 4) O/0 und I/1/L-Verwechslungen als letzter Fallback.
   for(const m of t.matchAll(/\b([O0I1L]{0,2}[O0I1L\d]{2,4})\s*\/\s*([O0I1L]{0,2}[O0I1L\d]{2,4})\b/g)){
     const fix=v=>v.replace(/O/g,"0").replace(/[IL]/g,"1");
     const a=fix(m[1]),b=fix(m[2]);
@@ -487,6 +549,11 @@ function findCollector(text){
     let confidence=82+(a.length===3&&b.length===3?15:0);
     found.push({full:a+"/"+b,local:a,total:b,confidence,kind:"fuzzy",fuzzy:true});
   }
+
+  // Gleiche Nummer in mehreren OCR-Varianten = zusätzlicher Vertrauensbonus.
+  const counts=new Map();
+  for(const x of found)counts.set(x.full,(counts.get(x.full)||0)+1);
+  for(const x of found)x.confidence+=(counts.get(x.full)-1)*8;
 
   found.sort((a,b)=>b.confidence-a.confidence);
   return found[0]||null
@@ -625,15 +692,28 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   bottomText+="\n"+numberText;
   log("Pokémon Detail-OCR",{topText,attackText,numberText,collector:fine.collector,attackPhrases:pokemonAttackPhrases(baseText+"\n"+bottomText)});
 
-  const pc=await pokemonCandidates(baseText,topText,bottomText,fine.collector);
   const evidenceText=[numberText,bottomText,topText,baseText].join("\n");
+  const strongCollector=fine.collector||findCollector(evidenceText);
   const setMatches=await pokemonSetsByOcr(evidenceText);
-  const directProduct=await trackingPokemonByCollector(pc.collector,evidenceText,setMatches);
+  const directProduct=await trackingPokemonByCollector(strongCollector,evidenceText,setMatches);
   if(directProduct){
     const p=directProduct.product;
     return{kind:"tracking",id:3,score:99,method:directProduct.method,top:{product_id:p.id,score:99,name:p.name,number:p.number,set_id:p.set_id}}
   }
 
+  let matcherImg=apiImg;
+  if(detailRect){
+    const mc=apiCrop(i,1,detailRect);
+    matcherImg=mc.d;
+    log("Matcher-Crop verfeinert",{kb:Math.round(mc.bytes/1024),quality:mc.q,frame:rectStats(i,detailRect)});
+  }
+
+  // Wenn wir zumindest plausible Set-Codes haben, erst dort scannen.
+  const setScan=await scanPokemonKnownSet(matcherImg,setMatches,strongCollector);
+  if(setScan)return{kind:"tracking",id:3,score:setScan.score,method:setScan.method,top:setScan.top};
+
+  // Erst danach die externe Textdatenbank versuchen. Auf iOS kann sie per CORS ausfallen.
+  const pc=await pokemonCandidates(baseText,topText,bottomText,strongCollector);
   const scored=[];
   for(const x of pc.items){
     try{
@@ -654,29 +734,23 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
     }
   }
 
-  log("OCR-Datenbanktreffer nicht sicher genug – Bild-Matcher wird mit verfeinertem Kartenrahmen genutzt.");
-  let matcherImg=apiImg;
-  if(detailRect){
-    const mc=apiCrop(i,1,detailRect);
-    matcherImg=mc.d;
-    log("Matcher-Crop verfeinert",{kb:Math.round(mc.bytes/1024),quality:mc.q,frame:rectStats(i,detailRect)});
-  }
-
-  const setScan=await scanPokemonKnownSet(matcherImg,setMatches,pc.collector);
-  if(setScan)return{kind:"tracking",id:3,score:setScan.score,method:setScan.method,top:setScan.top};
-
+  log("OCR-Datenbanktreffer nicht sicher genug – globaler Bild-Matcher wird als letzter Fallback genutzt.");
   const r=await sg(3,matcherImg);
   if(r.top&&r.score>=72){
-    if(pc.collector&&pc.collector.kind==="numeric"&&(pc.collector.confidence||0)>=145&&collectorNorm(r.top.number)!==collectorNorm(pc.collector.full)){
-      log("Globaler Bildtreffer wegen starker OCR-Nummer verworfen",{ocrNumber:pc.collector.full,matchName:r.top.name,matchNumber:r.top.number,matchScore:r.score});
+    if(strongCollector&&["numeric","slashFuzzy"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(r.top.number)!==collectorNorm(strongCollector.full)){
+      log("Globaler Bildtreffer wegen starker OCR-Nummer verworfen",{ocrNumber:strongCollector.full,matchName:r.top.name,matchNumber:r.top.number,matchScore:r.score});
     }else{
       return{kind:"tracking",id:3,score:r.score,method:"Bild-Match",top:r.top}
     }
   }
   const recent=await recentPokemonScan(matcherImg);
   if(recent?.top&&recent.score>=58){
-    log("Recent-Set Sieger",{score:recent.score,name:recent.top.name,product_id:recent.top.product_id});
-    return{kind:"tracking",id:3,score:recent.score,method:"Recent-Set Bild-Match",top:recent.top}
+    if(strongCollector&&["numeric","slashFuzzy"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(recent.top.number)!==collectorNorm(strongCollector.full)){
+      log("Recent-Set Treffer wegen starker OCR-Nummer verworfen",{ocrNumber:strongCollector.full,matchName:recent.top.name,matchNumber:recent.top.number,matchScore:recent.score});
+    }else{
+      log("Recent-Set Sieger",{score:recent.score,name:recent.top.name,product_id:recent.top.product_id});
+      return{kind:"tracking",id:3,score:recent.score,method:"Recent-Set Bild-Match",top:recent.top}
+    }
   }
   throw new Error("Pokémon erkannt, aber die konkrete Karte noch nicht sicher genug. Bitte Karte ohne starke Spiegelung und etwas näher fotografieren.")
 }
