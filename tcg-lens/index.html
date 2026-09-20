@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v39 · Footer Number Recovery</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v40 · Bottom-Left Footer Lock</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v39 Footer Number Recovery",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v40 Bottom-Left Footer Lock",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -432,12 +432,17 @@ async function asianFooterEvidence(i,rect,baseText=""){
   const check=(label,t)=>{
     if(t)texts.push(t);
     const evidence=texts.join("\n");
+    const exactCollector=japaneseCollectorFromFooter(evidence);
+    const collector=exactCollector||findCollector(evidence);
     const codes=japanesePrintedSetCodes(evidence);
-    const collector=japaneseCollectorFromFooter(evidence)||findCollector(evidence);
-    attempts.push({label,text:String(t||"").slice(0,300),codes,collector:collector?.full||null,confidence:collector?.confidence||0});
-    if(codes.length&&collector&&(collector.confidence||0)>=130){
-      log("Asien-Footer EXAKT gelesen",{codes,collector,label});
-      return{evidence,codes,collector,attempts}
+    attempts.push({label,text:String(t||"").slice(0,300),codes,collector:collector?.full||null,kind:collector?.kind||null,confidence:collector?.confidence||0});
+
+    // Wichtig: Ein generischer OCR-Treffer wie "67/06" ist KEIN exakter
+    // asiatischer Footer. In v39 wurde dadurch zu früh abgebrochen und der
+    // präzise untere Kartenrand gar nicht mehr gelesen.
+    if(codes.length&&exactCollector&&(exactCollector.confidence||0)>=180){
+      log("Asien-Footer EXAKT gelesen",{codes,collector:exactCollector,label});
+      return{evidence,codes,collector:exactCollector,attempts}
     }
     return null
   };
@@ -447,7 +452,7 @@ async function asianFooterEvidence(i,rect,baseText=""){
       t=await ocr(
         rawRegion(i,r,x0,y0,x1,y1,target,mode),
         "OCR Asien-Footer "+label,
-        {tessedit_pageseg_mode:psm,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/.- "}
+        {tessedit_pageseg_mode:psm,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/,.- "}
       );
     }catch(e){log("Asien-Footer OCR fehlgeschlagen: "+e.message)}
     return check(label,t)
@@ -489,19 +494,24 @@ async function asianFooterEvidence(i,rect,baseText=""){
   for(const sc of [.88,.80,.72,.64])addFrame("Center "+Math.round(sc*100)+"%",centeredCardRect(i,sc));
 
   for(const f of frames){
+    // Auf Pokémon JP/KR steht Set-Code + Kartennummer fast immer links unten.
+    // Dieser enge Crop gibt Tesseract deutlich mehr Pixel für "SV5a 067/066 AR".
     for(const r of [
-      {name:"Footer",x0:.00,y0:.80,x1:.82,y1:.975,mode:"raw"},
-      {name:"Footer tief",x0:.00,y0:.86,x1:.86,y1:.998,mode:"contrast"}
+      {name:"Code+Nummer",x0:.00,y0:.835,x1:.64,y1:.995,mode:"raw",psm:7,target:3200},
+      {name:"Code+Nummer Kontrast",x0:.00,y0:.80,x1:.70,y1:.998,mode:"contrast",psm:6,target:3000},
+      {name:"Footer",x0:.00,y0:.80,x1:.82,y1:.975,mode:"raw",psm:6,target:2600},
+      {name:"Footer tief",x0:.00,y0:.86,x1:.86,y1:.998,mode:"contrast",psm:6,target:2600}
     ]){
-      const hit=await read(f.label+" "+r.name,f.rect,r.x0,r.y0,r.x1,r.y1,r.mode,6,2400);
+      const hit=await read(f.label+" "+r.name,f.rect,r.x0,r.y0,r.x1,r.y1,r.mode,r.psm,r.target);
       if(hit)return hit
     }
   }
 
   const evidence=texts.join("\n");
   const codes=japanesePrintedSetCodes(evidence);
-  const collector=japaneseCollectorFromFooter(evidence)||findCollector(evidence);
-  log("Asien-Footer Auswertung",{codes,collector,attempts});
+  const exactCollector=japaneseCollectorFromFooter(evidence);
+  const collector=exactCollector||findCollector(evidence);
+  log("Asien-Footer Auswertung",{codes,collector,exact:!!exactCollector,attempts});
   return{evidence,codes,collector,attempts}
 }
 
@@ -2123,20 +2133,14 @@ async function scanAuto(i,apiImg,baseText,scale=.96,rect=null){
     const jpEvidence=[asianFooter.evidence,jpProbe.text].filter(Boolean).join("\n");
     log("Auto-Routing → Pokémon Japan/Korea (asiatische Schrift)",{japaneseChars:jpProbe.count,kana:jpProbe.kana});
 
-    if(asianFooter.codes.length&&asianFooter.collector&&(asianFooter.collector.confidence||0)>=130){
-      const exactAsian=await pokemonJapanFooterRoute(jpEvidence,asianFooter.collector,apiImg);
-      if(exactAsian){
-        exactAsian.method="Asien Set-Code + Kartennummer";
-        log("Auto-Routing → Pokémon Japan/Korea (Footer)",{codes:asianFooter.codes,collector:asianFooter.collector.full,name:exactAsian.top?.name,number:exactAsian.top?.number});
-        return exactAsian;
-      }
-    }
-
     const footerCollector=japaneseCollectorFromFooter(jpEvidence)||asianFooter.collector||findCollector(jpEvidence);
-    const exactFooter=await pokemonJapanFooterRoute(jpEvidence,footerCollector,apiImg);
-    if(exactFooter){
-      exactFooter.method="Asien Footer + Sprachprobe";
-      return exactFooter;
+    if(asianFooter.codes.length&&footerCollector&&(footerCollector.confidence||0)>=130){
+      const exactFooter=await pokemonJapanFooterRoute(jpEvidence,footerCollector,apiImg);
+      if(exactFooter){
+        exactFooter.method="Asien Footer + Sprachprobe";
+        log("Auto-Routing → Pokémon Japan/Korea (Footer)",{codes:asianFooter.codes,collector:footerCollector.full,name:exactFooter.top?.name,number:exactFooter.top?.number});
+        return exactFooter;
+      }
     }
 
     const numberYear=await pokemonJapanCollectorYearRoute(jpEvidence,footerCollector,apiImg);
