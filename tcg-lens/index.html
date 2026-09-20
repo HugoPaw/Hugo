@@ -8,13 +8,13 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v31 · Weak Pokémon Route</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v32 · Japan Number + PSA Sold</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
 <div class="card"><div class="label">TCG</div><select id="game"><option value="auto">Auto erkennen</option><option value="3">Pokémon</option><option value="85">Pokémon Japan</option><option value="89">Riftbound</option><option value="68">One Piece</option><option value="71">Disney Lorcana</option><option value="86">Gundam</option><option value="1">Magic: The Gathering</option><option value="2">Yu-Gi-Oh!</option></select></div>
 <div class="card"><div class="photo"><img id="preview"><div id="ph" class="ph"><b>Noch kein Foto</b>Karte möglichst gerade, mittig und groß fotografieren.</div></div><label class="btn primary" for="camera">📷 Foto von Karte machen</label><input id="camera" type="file" accept="image/*" capture="environment"><button id="again" class="btn secondary" style="display:none">Noch einmal fotografieren</button><div id="status" class="status"></div></div>
-<div id="result" class="card"><div class="res"><img id="cardImg"><div><div id="rGame" class="game"></div><div id="rName" class="name"></div><div id="rMeta" class="meta"></div><div id="rPrice" class="price"></div><div id="rSmall" class="small"></div><div id="rScore" class="small" style="margin-top:7px"></div></div></div><div class="links"><a id="cmLink" class="btn secondary" target="_blank">Cardmarket</a><a id="tcgLink" class="btn secondary" target="_blank">TCGplayer</a><a id="ebayLink" class="btn secondary" target="_blank">eBay sold</a></div></div>
+<div id="result" class="card"><div class="res"><img id="cardImg"><div><div id="rGame" class="game"></div><div id="rName" class="name"></div><div id="rMeta" class="meta"></div><div id="rPrice" class="price"></div><div id="rSmall" class="small"></div><div id="rScore" class="small" style="margin-top:7px"></div><div id="psaBox" style="margin-top:10px;padding:9px 10px;border:1px solid #29323c;border-radius:10px;background:#0b0f13"><div class="small" style="display:flex;justify-content:space-between;gap:8px"><span>PSA 10 Last sold</span><b id="psa10">-</b></div><div class="small" style="display:flex;justify-content:space-between;gap:8px;margin-top:5px"><span>PSA 9 Last sold</span><b id="psa9">-</b></div><button id="psaLoad" class="btn secondary" style="font-size:12px;padding:9px 8px;margin-top:8px">PSA Last Sold laden</button><div id="psaNote" class="small" style="margin-top:5px">Quelle bei Treffer: <a id="psaSource" href="https://index.renaissos.com" target="_blank" style="color:#aeb8c3">Renaiss Index</a></div></div></div></div><div class="links"><a id="cmLink" class="btn secondary" target="_blank">Cardmarket</a><a id="tcgLink" class="btn secondary" target="_blank">TCGplayer</a><a id="ebayLink" class="btn secondary" target="_blank">eBay sold</a></div></div>
 <div class="card"><div class="label">Letzte Scans</div><div id="history" class="history"><span style="color:#73808c;font-size:13px">Noch keine Karten gescannt.</span></div><div id="historyTotal" class="historySummary" style="display:none"></div><div class="historyActions"><button id="exportCsv" class="btn secondary">CSV downloaden</button><button id="exportTxt" class="btn secondary">TXT downloaden</button></div><div class="historyHint">Karte gedrückt halten, um sie aus den letzten Scans zu entfernen.</div></div>
 </section>
 
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v31 Weak Pokémon Route",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v32 Japan Number + PSA Sold",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -386,13 +386,30 @@ function japanesePrintedSetCodes(text){
   for(const m of u.matchAll(re))out.push(m[0]);
   return unique(out)
 }
+function japaneseCollectorFromFooter(text){
+  const u=String(text||"").toUpperCase().replace(/[|\\]/g,"/");
+  const hits=[];
+  const add=(a,b,raw,confidence=188)=>{
+    const ai=Number(a),bi=Number(b);
+    if(!(ai>0&&ai<1000&&bi>=10&&bi<1000))return;
+    hits.push({full:a+"/"+b,local:a,total:b,confidence,kind:"japanFooter",raw:String(raw||"").trim()})
+  };
+  for(const m of u.matchAll(/(?:^|[^\d])(\d{3})\s*[\/,.;:]\s*(\d{3})(?!\d)/g))add(m[1],m[2],m[0],194);
+  for(const m of u.matchAll(/(?:^|[^\d])\d?(\d{3})\s*[\/,.;:]\s*(\d{3})\d?(?!\d)/g))add(m[1],m[2],m[0],184);
+  hits.sort((a,b)=>b.confidence-a.confidence);
+  return hits[0]||null
+}
 async function pokemonJapanFooterRoute(text,collector,apiImg){
   const codes=japanesePrintedSetCodes(text);
   if(!codes.length)return null;
   log("Japan-Footer Set-Codes",codes);
 
-  if(!collector||!["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130){
-    log("Japan-Footer: Set-Code da, Nummer noch nicht stark genug",collector||null);
+  const footerCollector=japaneseCollectorFromFooter(text);
+  const routeCollector=(footerCollector&&(!collector||(footerCollector.confidence||0)>(collector.confidence||0)))?footerCollector:collector;
+  if(footerCollector)log("Japan-Footer Nummer-Recovery",footerCollector);
+
+  if(!routeCollector||!["numeric","slashFuzzy","punctFuzzy","noisy3x3","japanFooter"].includes(routeCollector.kind)||(routeCollector.confidence||0)<130){
+    log("Japan-Footer: Set-Code da, Nummer noch nicht stark genug",routeCollector||collector||null);
     return null
   }
 
@@ -419,7 +436,7 @@ async function pokemonJapanFooterRoute(text,collector,apiImg){
   log("Japan-Footer Set-Treffer",bestBySet.map(x=>({ocr:x.code,abbr:x.abbr,distance:x.distance,id:x.sid,name:x.set.name||x.set.set_name,score:x.score})));
   if(!bestBySet.length)return null;
 
-  const wanted=collectorNorm(collector.full),hits=[];
+  const wanted=collectorNorm(routeCollector.full),hits=[];
   for(const m of bestBySet){
     try{
       const cards=arrayFromApi(await req(API+"/85/sets/"+m.sid+"/cards",{},"Japan Set-Karten "+m.sid,true));
@@ -817,7 +834,7 @@ function findCollector(text){
   const found=[];
 
   // 1) Saubere Sammler-Nummer, z. B. 091/086.
-  for(const m of t.matchAll(/\b(\d{2,3})\s*\/\s*(\d{2,3})\b/g)){
+  for(const m of t.matchAll(/(?:^|[^\d])(\d{2,3})\s*\/\s*(\d{2,3})(?!\d)/g)){
     const a=m[1],b=m[2],ai=Number(a),bi=Number(b);
     let confidence=118;
     if(a.length===3&&b.length===3)confidence+=30;
@@ -829,7 +846,7 @@ function findCollector(text){
 
   // 2) Sehr typischer iPhone/OCR-Fehler: der Slash wird als 7/1/I/T gelesen.
   //    Beispiel aus dem echten Scan: 0917086 -> 091/086.
-  for(const m of t.matchAll(/\b(\d{3})\s*([71IT])\s*(\d{3})\b/g)){
+  for(const m of t.matchAll(/(?:^|[^\d])(\d{3})\s*([71IT])\s*(\d{3})(?!\d)/g)){
     const a=m[1],b=m[3],ai=Number(a),bi=Number(b);
     if(!(ai>0&&bi>=10&&bi<1000))continue;
     let confidence=136;
@@ -849,7 +866,7 @@ function findCollector(text){
   // 4) Stark verrauschte 3/3-Nummern. iPhone OCR hängt bei kleinen
   //    Sammler-Nummern oft noch 1-2 Ziffern an: 017/0738 -> 017/073.
   //    Das wird nur für exakt 3+3 Ziffern akzeptiert und bewusst hoch bewertet.
-  for(const m of t.matchAll(/\b(\d{3})\s*([\/71IT])\s*(\d{3})\d{1,2}\b/g)){
+  for(const m of t.matchAll(/(?:^|[^\d])(\d{3})\s*([\/71IT])\s*(\d{3})\d{1,2}(?!\d)/g)){
     const a=m[1],b=m[3],ai=Number(a),bi=Number(b);
     if(!(ai>0&&bi>=10&&bi<=400&&ai<=450))continue;
     found.push({full:a+"/"+b,local:a,total:b,confidence:168,kind:"noisy3x3",separator:m[2],raw:m[0]});
@@ -1955,6 +1972,164 @@ function bestTcgPrice(t){
   const pref=vals.find(x=>/holo/i.test(x.variant)&&!/reverse/i.test(x.variant));
   return pref||vals[0]
 }
+
+const RENAISS="https://api.renaissos.com/v1";
+let CURRENT_PSA_CARD=null;
+const PSA_CACHE_KEY="tcglens_psa_cache_v1";
+function renaissGame(g){
+  return({1:"mtg",2:"yugioh",3:"pokemon",85:"pokemon",68:"one-piece",71:"lorcana",86:"gundam",89:"riftbound"})[Number(g)]||null
+}
+function psaReset(ctx=null){
+  CURRENT_PSA_CARD=ctx;
+  const a=$("#psa10"),b=$("#psa9"),n=$("#psaNote"),btn=$("#psaLoad");
+  if(a)a.textContent="-";if(b)b.textContent="-";
+  if(n)n.innerHTML='Quelle bei Treffer: <a id="psaSource" href="https://index.renaissos.com" target="_blank" style="color:#aeb8c3">Renaiss Index</a>';
+  if(btn){btn.disabled=!ctx;btn.textContent="PSA Last Sold laden"}
+}
+function psaCacheLoad(){
+  try{return JSON.parse(localStorage.getItem(PSA_CACHE_KEY)||"{}")||{}}catch{return{}}
+}
+function psaCacheKey(c){return[c?.game,c?.name,c?.set,c?.number].map(x=>String(x||"").toLowerCase().trim()).join("|")}
+function psaCacheGet(c){
+  const x=psaCacheLoad()[psaCacheKey(c)];
+  if(!x)return null;
+  if(Date.now()-Number(x.savedAt||0)>24*60*60*1000)return null;
+  return x
+}
+function psaCachePut(c,v){
+  const all=psaCacheLoad();all[psaCacheKey(c)]={...v,savedAt:Date.now()};
+  const entries=Object.entries(all).sort((a,b)=>Number(b[1]?.savedAt||0)-Number(a[1]?.savedAt||0)).slice(0,80);
+  localStorage.setItem(PSA_CACHE_KEY,JSON.stringify(Object.fromEntries(entries)))
+}
+async function renaissJson(url,label){
+  const r=await fetch(url,{headers:{Accept:"application/json"}});
+  if(r.status===429)throw new Error("PSA-Datenlimit für heute erreicht");
+  if(!r.ok)throw new Error(label+" HTTP "+r.status);
+  return await r.json()
+}
+function renaissSearchRows(d){
+  if(Array.isArray(d))return d;
+  for(const k of ["items","results","cards","data"])if(Array.isArray(d?.[k]))return d[k];
+  return[]
+}
+function renaissNorm(v){return String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
+function renaissRowScore(x,c){
+  const name=x?.name??x?.cardName??x?.title??"",num=x?.cardNumber??x?.number??x?.collectorNumber??"",set=x?.setName??x?.set??"";
+  const qn=renaissNorm(c.name),rn=renaissNorm(name);
+  let sc=0;
+  if(qn&&rn===qn)sc+=120;else if(qn&&rn&&(rn.includes(qn)||qn.includes(rn)))sc+=70;
+  const cn=collectorNorm(c.number),xn=collectorNorm(num);
+  if(cn&&xn&&cn===xn)sc+=150;
+  const cs=renaissNorm(c.set),xs=renaissNorm(typeof set==="string"?set:(set?.name||""));
+  if(cs&&xs&&(cs===xs||cs.includes(xs)||xs.includes(cs)))sc+=35;
+  if(/psa|cgc|bgs/i.test(String(x?.gradeLabel||x?.grade||"")))sc-=10;
+  return sc
+}
+function renaissOverviewUrl(row){
+  const id=row?.id??row?.itemId??row?.item_id;
+  if(id)return RENAISS+"/items/by-id/"+encodeURIComponent(id)+"/overview";
+  const href=String(row?.href||row?.url||"");
+  const m=href.match(/\/card\/([^/]+)\/([^/]+)\/([^/?#]+)/i);
+  if(m)return RENAISS+"/items/"+encodeURIComponent(m[1])+"/"+encodeURIComponent(m[2])+"/"+encodeURIComponent(m[3])+"/overview";
+  return null
+}
+function renaissGradeTradeUrl(g){
+  const id=g?.id??g?.itemId??g?.item_id;
+  if(id)return RENAISS+"/items/by-id/"+encodeURIComponent(id)+"/trades?limit=20";
+  const href=String(g?.href||g?.url||"");
+  const m=href.match(/\/card\/([^/]+)\/([^/]+)\/([^/?#]+)/i);
+  if(m)return RENAISS+"/items/"+encodeURIComponent(m[1])+"/"+encodeURIComponent(m[2])+"/"+encodeURIComponent(m[3])+"/trades?limit=20";
+  return null
+}
+function tradeRowsDeep(v,out=[]){
+  if(!v||typeof v!=="object")return out;
+  if(Array.isArray(v)){for(const x of v)tradeRowsDeep(x,out);return out}
+  const hasPrice=["priceUsdCents","price_usd_cents","soldPriceUsdCents","amountUsdCents","priceUsd","price_usd"].some(k=>Number(v[k])>0);
+  if(hasPrice)out.push(v);
+  for(const x of Object.values(v))if(x&&typeof x==="object")tradeRowsDeep(x,out);
+  return out
+}
+function tradeUsd(x){
+  for(const k of ["priceUsdCents","price_usd_cents","soldPriceUsdCents","amountUsdCents"]){
+    const n=Number(x?.[k]);if(Number.isFinite(n)&&n>0)return n/100
+  }
+  for(const k of ["priceUsd","price_usd"]){
+    const n=Number(x?.[k]);if(Number.isFinite(n)&&n>0)return n
+  }
+  return null
+}
+function tradeDate(x){
+  for(const k of ["soldAt","sold_at","saleDate","sale_date","occurredAt","occurred_at","tradedAt","traded_at","date","createdAt","created_at"]){
+    const v=x?.[k];if(v){const t=Date.parse(v);if(Number.isFinite(t))return t}
+  }
+  return 0
+}
+async function psaLastTradeForGrade(gradeRow){
+  const url=renaissGradeTradeUrl(gradeRow);
+  if(!url)return null;
+  const d=await renaissJson(url,"PSA Trades");
+  const rows=tradeRowsDeep(d).filter(x=>tradeUsd(x));
+  if(!rows.length)return null;
+  rows.sort((a,b)=>tradeDate(b)-tradeDate(a));
+  const x=rows[0],price=tradeUsd(x);
+  return price?{price,date:tradeDate(x)||null}:null
+}
+function gradeIs(g,n){
+  const company=String(g?.company??g?.grader??g?.gradingCompany??"").toUpperCase();
+  const grade=String(g?.grade??g?.score??g?.gradeLabel??"").toUpperCase();
+  return company==="PSA"&&(grade===String(n)||grade==="PSA "+n||grade.endsWith(" "+n))
+}
+function renderPsaSold(v){
+  $("#psa10").textContent=v?.psa10?.price?usd(v.psa10.price):"-";
+  $("#psa9").textContent=v?.psa9?.price?usd(v.psa9.price):"-";
+  const parts=[];
+  if(v?.psa10?.date)parts.push("PSA 10 "+new Date(v.psa10.date).toLocaleDateString("de-CH"));
+  if(v?.psa9?.date)parts.push("PSA 9 "+new Date(v.psa9.date).toLocaleDateString("de-CH"));
+  $("#psaNote").innerHTML=(parts.length?parts.join(" · ")+" · ":"")+'Quelle: <a id="psaSource" href="https://index.renaissos.com" target="_blank" style="color:#aeb8c3">Renaiss Index</a>';
+}
+function updateLatestHistoryPsa(c,v){
+  const h=historyLoad(),key=psaCacheKey(c);
+  const i=h.findIndex(x=>psaCacheKey({game:x.game,name:x.name,set:x.set,number:x.number})===key);
+  if(i<0)return;
+  h[i].psa10LastSold=v?.psa10?.price||null;h[i].psa10SoldAt=v?.psa10?.date||null;
+  h[i].psa9LastSold=v?.psa9?.price||null;h[i].psa9SoldAt=v?.psa9?.date||null;
+  h[i].psaSource=(v?.psa10?.price||v?.psa9?.price)?"Renaiss Index":"";
+  historyStore(h);hist()
+}
+async function loadPsaLastSold(){
+  const c=CURRENT_PSA_CARD;if(!c)return;
+  const btn=$("#psaLoad");btn.disabled=true;btn.textContent="PSA wird geladen …";
+  $("#psa10").textContent="…";$("#psa9").textContent="…";
+  try{
+    const cached=psaCacheGet(c);
+    if(cached){renderPsaSold(cached);updateLatestHistoryPsa(c,cached);log("PSA Last Sold aus Cache",cached);return}
+    const game=renaissGame(c.game);if(!game)throw new Error("Kein PSA-Datenprovider für dieses TCG");
+    const q=[c.name,c.number,c.set].filter(Boolean).join(" ").slice(0,80);
+    const search=await renaissJson(RENAISS+"/search?q="+encodeURIComponent(q)+"&game="+encodeURIComponent(game)+"&limit=20","PSA Suche");
+    const rows=renaissSearchRows(search).map(x=>({x,score:renaissRowScore(x,c)})).sort((a,b)=>b.score-a.score);
+    log("PSA Renaiss Suche",rows.slice(0,8).map(r=>({score:r.score,name:r.x?.name||r.x?.title,number:r.x?.cardNumber||r.x?.number,set:r.x?.setName||r.x?.set,id:r.x?.id,href:r.x?.href})));
+    const best=rows[0];
+    if(!best||best.score<100)throw new Error("PSA Karte nicht eindeutig in der Sold-Datenbank gefunden");
+    const ovUrl=renaissOverviewUrl(best.x);if(!ovUrl)throw new Error("PSA Karten-ID fehlt");
+    const ov=await renaissJson(ovUrl,"PSA Übersicht");
+    const grades=Array.isArray(ov?.grades)?ov.grades:(Array.isArray(ov?.data?.grades)?ov.data.grades:[]);
+    const g10=grades.find(x=>gradeIs(x,10)),g9=grades.find(x=>gradeIs(x,9));
+    log("PSA Grade Treffer",{psa10:g10?{grade:g10.grade,href:g10.href,lastSaleAt:g10.lastSaleAt}:null,psa9:g9?{grade:g9.grade,href:g9.href,lastSaleAt:g9.lastSaleAt}:null});
+    const [psa10,psa9]=await Promise.all([
+      g10?psaLastTradeForGrade(g10).catch(e=>(log("PSA 10 Trades: "+e.message),null)):Promise.resolve(null),
+      g9?psaLastTradeForGrade(g9).catch(e=>(log("PSA 9 Trades: "+e.message),null)):Promise.resolve(null)
+    ]);
+    const v={psa10,psa9};
+    psaCachePut(c,v);renderPsaSold(v);updateLatestHistoryPsa(c,v);
+    log("PSA Last Sold geladen",v)
+  }catch(e){
+    $("#psa10").textContent="-";$("#psa9").textContent="-";
+    $("#psaNote").textContent=e?.message||"Keine PSA Sold-Daten gefunden";
+    log("PSA Last Sold nicht verfügbar: "+(e?.message||String(e)))
+  }finally{
+    btn.disabled=false;btn.textContent="PSA Last Sold laden"
+  }
+}
 const HISTORY_KEY="tcglens";
 function historyLoad(){
   try{
@@ -2060,12 +2235,14 @@ function downloadHistoryFile(name,text,type){
 function exportHistoryCsv(){
   const h=historyLoad();
   if(!h.length)return;
-  const head=["Zeit","TCG","Karte","Set","Nummer","Seltenheit","Preis","Währung","Preistext","Preisquelle"];
+  const head=["Zeit","TCG","Karte","Set","Nummer","Seltenheit","Preis","Währung","Preistext","Preisquelle","PSA 10 Last sold USD","PSA 10 Datum","PSA 9 Last sold USD","PSA 9 Datum","PSA Quelle"];
   const rows=h.map(x=>{
     const p=parseHistoryPrice(x);
     return[
       exportDate(x.savedAt),x.game||"",x.name||"",x.set||"",x.number||"",x.rarity||"",
-      p?Number(p.value).toFixed(2):"",p?.currency||x.currency||"",x.priceText||"",x.priceSource||""
+      p?Number(p.value).toFixed(2):"",p?.currency||x.currency||"",x.priceText||"",x.priceSource||"",
+      x.psa10LastSold?Number(x.psa10LastSold).toFixed(2):"",x.psa10SoldAt?exportDate(x.psa10SoldAt):"",
+      x.psa9LastSold?Number(x.psa9LastSold).toFixed(2):"",x.psa9SoldAt?exportDate(x.psa9SoldAt):"",x.psaSource||""
     ].map(csvCell).join(";")
   });
   downloadHistoryFile("tcg-lens-scans-"+new Date().toISOString().slice(0,10)+".csv","\uFEFF"+[head.map(csvCell).join(";"),...rows].join("\r\n"),"text/csv");
@@ -2083,6 +2260,8 @@ function exportHistoryTxt(){
     if(x.number)lines.push("   Nummer: "+x.number);
     if(x.rarity)lines.push("   Seltenheit: "+x.rarity);
     lines.push("   Preis: "+(p?((p.currency==="CHF"?"CHF ":p.currency)+Number(p.value).toFixed(2)):(x.priceText||"—")));
+    lines.push("   PSA 10 Last sold: "+(x.psa10LastSold?usd(x.psa10LastSold):"-"));
+    lines.push("   PSA 9 Last sold: "+(x.psa9LastSold?usd(x.psa9LastSold):"-"));
     if(x.savedAt)lines.push("   Gescannt: "+exportDate(x.savedAt));
     lines.push("")
   });
@@ -2111,6 +2290,7 @@ function showPokemon(res){
   $("#rScore").textContent="Erkennung: "+Math.round(res.score)+" % · OCR + Kartendatenbank";
   $("#cmLink").href=cmUrl(p,3);$("#tcgLink").href=tcgUrl(p);$("#ebayLink").href=ebayUrl(p);
   $("#result").style.display="block";
+  psaReset({game:3,name:p.name||"Pokémon Karte",set:p.set?.name||"",number});
   save({game:"Pokémon",name:p.name,set:p.set?.name||"",number,rarity:p.rarity||"",img,priceText:primary?eur(primary):(tp?usd(tp.value):"—"),priceValue:primary||tp?.value||null,currency:primary?"€":(tp?"$":""),priceSource:primary?"Cardmarket":"TCGplayer"})
 }
 function showTracking(g,m,d){
@@ -2135,7 +2315,9 @@ function showTracking(g,m,d){
   $("#rScore").textContent=(m.method||"Bild-Match")+": "+Math.round(m.score)+" %";
   $("#cmLink").href=cmUrl(p,g);$("#tcgLink").href=tcgUrl(p);$("#ebayLink").href=ebayUrl(p);
   $("#result").style.display="block";
-  save({game:G[g]||"TCG",name:localName||p.name,set:p.set_name||"",number:p.ext_number||p.number||m.top?.number||"",rarity:p.ext_rarity||p.rarity||"",img:p.image_url,priceText:d.market?usd(d.market):(d.low?usd(d.low):"—"),priceValue:d.market||d.low||null,currency:(d.market||d.low)?"$":"",priceSource:d.market?"TCGplayer Marktpreis":(d.low?"TCGplayer Angebot":"")});
+  const displayName=localName||p.name||"Karte",displayNumber=p.ext_number||p.number||m.top?.number||"";
+  psaReset({game:g,name:displayName,set:p.set_name||"",number:displayNumber});
+  save({game:G[g]||"TCG",name:displayName,set:p.set_name||"",number:displayNumber,rarity:p.ext_rarity||p.rarity||"",img:p.image_url,priceText:d.market?usd(d.market):(d.low?usd(d.low):"—"),priceValue:d.market||d.low||null,currency:(d.market||d.low)?"$":"",priceSource:d.market?"TCGplayer Marktpreis":(d.low?"TCGplayer Angebot":"")});
   log("Preis angezeigt",{product_id:p.id,market:d.market,low:d.low,variant:d.variant,source:d.source,set_id:p.set_id||m.top?.set_id});
 }
 async function run(file){
@@ -2191,6 +2373,7 @@ $("#apiTest").onclick=async()=>{try{await req(API+"/meta",{},"TCGTracking Test")
 $("#copyLogs").onclick=async()=>{try{await navigator.clipboard.writeText($("#logbox").textContent);log("Logs kopiert")}catch(e){log("Kopieren nicht möglich: "+e.message)}};
 $("#exportCsv").onclick=exportHistoryCsv;
 $("#exportTxt").onclick=exportHistoryTxt;
+$("#psaLoad").onclick=loadPsaLastSold;
 hist();
 })();
 </script></body></html>
