@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v54 · Attack + Number Lock</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v55 · Local-ID Evidence Lock</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v54 Attack + Number Lock",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v55 Local-ID Evidence Lock",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -2155,6 +2155,103 @@ async function pokemonEraNameScan(text,matcherImg){
   }catch(e){log("Name+Era Bildscan fehlgeschlagen: "+e.message)}
   return null
 }
+async function pokemonLocalIdEvidenceLock(text,collector){
+  if(!collector||!["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130)return null;
+
+  const rawLocal=String(collector.local||"").trim();
+  const local=rawLocal.replace(/^0+(?=\d)/,"");
+  if(!/^\d{1,4}$/.test(local))return null;
+
+  const queries=unique([rawLocal,local,local.padStart(3,"0")].filter(Boolean));
+  const langs=unique(["en",...pokemonLangOrder(text)]).slice(0,4);
+  const briefs=new Map();
+  log("Local-ID Evidenz-Lock startet",{collector:collector.full,local,langs});
+
+  let calls=0;
+  for(const lang of langs){
+    for(const q of queries){
+      if(calls>=12)break;
+      calls++;
+      try{
+        let rows=await req(TDX+"/"+lang+"/cards?localId=eq:"+encodeURIComponent(q),{},"Local-ID "+q+" "+lang,true);
+        if(!Array.isArray(rows)||!rows.length){
+          rows=await req(TDX+"/"+lang+"/cards?localId="+encodeURIComponent(q),{},"Local-ID lax "+q+" "+lang,true);
+        }
+        const filtered=(Array.isArray(rows)?rows:[]).filter(x=>String(x.localId??"").replace(/^0+(?=\d)/,"")===local);
+        log("Local-ID Treffer",{lang,q,count:Array.isArray(rows)?rows.length:0,filtered:filtered.slice(0,10).map(x=>({id:x.id,name:x.name,localId:x.localId}))});
+        for(const x of filtered){
+          const key=String(x.id);
+          if(!briefs.has(key))briefs.set(key,{lang,brief:x});
+        }
+      }catch(e){log("Local-ID "+q+" "+lang+" fehlgeschlagen: "+e.message)}
+    }
+    if(briefs.size>=18)break;
+  }
+  if(!briefs.size){log("Local-ID Evidenz-Lock keine Karten",{collector:collector.full});return null}
+
+  const ocrAttacks=pokemonAttackPhrases(text).map(norm).filter(x=>x.length>=4);
+  const forms=cardFormHints(text);
+  const ranked=[];
+  for(const h of [...briefs.values()].slice(0,30)){
+    try{
+      const card=await req(TDX+"/"+h.lang+"/cards/"+encodeURIComponent(h.brief.id),{},"Local-ID Karte "+h.brief.id,true);
+      const anchor=pokemonNameAnchor(card?.name||"",text);
+      const nameScore=pokemonNameScore(card?.name||"",text);
+      let attackScore=0,attackHit=null;
+      for(const a of card?.attacks||[]){
+        const an=norm(a?.name||"");
+        if(!an)continue;
+        for(const p of ocrAttacks){
+          let s=0;
+          if(an===p)s=100;
+          else if(an.length>=5&&p.length>=5&&(an.includes(p)||p.includes(an)))s=74;
+          else{
+            const d=editDistance(an,p),mx=Math.max(an.length,p.length);
+            if(d===1&&mx>=5)s=64;
+            else if(d===2&&mx>=7)s=48;
+            else if(d===3&&mx>=10)s=34;
+          }
+          if(s>attackScore){attackScore=s;attackHit={ocr:p,card:an,distance:editDistance(an,p)}}
+        }
+      }
+      const nn=norm(card?.name||"");
+      let formScore=0;
+      if(forms.includes("ex"))formScore=/\bex\b/.test(nn)?16:-10;
+      else if(forms.includes("vmax"))formScore=/\bvmax\b/.test(nn)?18:-12;
+      else if(forms.includes("vstar"))formScore=/\bvstar\b/.test(nn)?18:-12;
+      else if(forms.includes("gx"))formScore=/\bgx\b/.test(nn)?16:-10;
+      const score=anchor+nameScore+attackScore+formScore;
+      ranked.push({...h,card,anchor,nameScore,attackScore,attackHit,formScore,score});
+    }catch(e){log("Local-ID Karte "+h.brief.id+" fehlgeschlagen: "+e.message)}
+  }
+
+  ranked.sort((a,b)=>b.score-a.score);
+  log("Local-ID Evidenz Ranking",ranked.slice(0,12).map(x=>({
+    name:x.card?.name,localId:x.card?.localId,set:x.card?.set?.name,
+    anchor:x.anchor,nameScore:x.nameScore,attackScore:x.attackScore,
+    attackHit:x.attackHit,formScore:x.formScore,score:x.score
+  })));
+
+  const a=ranked[0],b=ranked[1];
+  if(!a)return null;
+  const gap=a.score-(b?.score||0);
+  const strongName=a.anchor>=86&&a.nameScore>=45;
+  const strongAttack=a.attackScore>=74;
+  const safe=
+    (strongName&&strongAttack&&gap>=18) ||
+    (a.anchor>=100&&a.nameScore>=60&&gap>=28) ||
+    (a.attackScore>=100&&a.anchor>=70&&gap>=22) ||
+    (!b&&((strongName&&a.attackScore>=48)||(strongAttack&&a.anchor>=70)));
+
+  if(!safe){
+    log("Local-ID Evidenz-Lock noch mehrdeutig",{best:a&&{name:a.card?.name,set:a.card?.set?.name,score:a.score,anchor:a.anchor,nameScore:a.nameScore,attackScore:a.attackScore},second:b&&{name:b.card?.name,set:b.card?.set?.name,score:b.score},gap});
+    return null
+  }
+
+  log("Local-ID Evidenz-Lock Sieger",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,ocrCollector:collector.full,attackHit:a.attackHit,score:a.score,gap});
+  return{kind:"tcgdex",id:3,score:99,lang:a.lang,card:a.card,method:"Lokale Kartennummer + OCR-Name/Attacke"}
+}
+
 async function pokemonAttackCollectorLock(text,collector){
   if(!collector||!["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130)return null;
   const local=String(collector.local||"").replace(/^0+(?=\d)/,"");
@@ -2483,6 +2580,12 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   // Generic fast path: a strong printed number plus a readable Pokémon name is
   // already enough to identify the exact printing. Do this before noisy set-code
   // guesses and expensive variant-image OCR.
+  // First use the local collector number only, then verify it against the OCR name
+  // and attack text from the FULL card. This survives a wrong set-size OCR such as
+  // 206/917 when the real card is 206/191.
+  const localEvidenceLock=await pokemonLocalIdEvidenceLock(evidenceText,strongCollector);
+  if(localEvidenceLock)return localEvidenceLock;
+
   const attackNumberLock=await pokemonAttackCollectorLock(evidenceText,strongCollector);
   if(attackNumberLock)return attackNumberLock;
 
