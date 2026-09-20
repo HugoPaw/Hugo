@@ -2579,8 +2579,12 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
   let titleEvidence=String(baseText||"");
   const titleAttempts=[];
 
-  // Only read the title band. Maximum two OCR calls.
-  for(const f of frames.slice(0,2)){
+  // Only read the title band. One auto-frame attempt + one stable centered attempt.
+  const titleFrames=unique([
+    frames.find(x=>x.label==="Auto"),
+    frames.find(x=>x.label==="Center 84%")
+  ].filter(Boolean));
+  for(const f of titleFrames.slice(0,2)){
     let t="";
     try{
       t=await ocr(
@@ -2595,33 +2599,38 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
     }
   }
 
-  // First try any number already present in the normal OCR.
-  let number=pokemonLooseNumber(titleEvidence);
   const numberAttempts=[];
+  const baseNumber=pokemonLooseNumber(titleEvidence);
+  let number=null;
 
-  // If needed, read only the bottom-left number area. Stop as soon as we have a local number.
-  if(!number){
-    const numberFrames=unique([
-      frames.find(x=>x.label==="Center 84%"),
-      frames[0],
-      frames.find(x=>x.label==="Center 96%")
-    ].filter(Boolean));
+  // Always do one dedicated number read. The general OCR often gets the local
+  // number right but hallucinates the denominator; the tiny footer crop is better.
+  const numberFrames=unique([
+    frames.find(x=>x.label==="Center 84%"),
+    frames.find(x=>x.label==="Auto"),
+    frames.find(x=>x.label==="Center 96%")
+  ].filter(Boolean));
 
-    for(const f of numberFrames.slice(0,3)){
-      let t="";
-      try{
-        t=await ocr(
-          rawRegion(i,f.rect,.00,.79,.66,.995,2500,"raw"),
-          "OCR Nummer "+f.label,
-          {tessedit_pageseg_mode:6,tessedit_char_whitelist:"0123456789/71IT.,: "}
-        );
-      }catch(e){log("Nummer OCR "+f.label+" fehlgeschlagen: "+e.message)}
+  for(const f of numberFrames.slice(0,2)){
+    let t="";
+    try{
+      t=await ocr(
+        rawRegion(i,f.rect,.00,.79,.66,.995,2500,"raw"),
+        "OCR Nummer "+f.label,
+        {tessedit_pageseg_mode:6,tessedit_char_whitelist:"0123456789/71IT.,: "}
+      );
+    }catch(e){log("Nummer OCR "+f.label+" fehlgeschlagen: "+e.message)}
 
-      const hit=pokemonLooseNumber(t);
-      numberAttempts.push({frame:f.label,text:t.slice(0,220),hit});
-      if(hit){number=hit;break}
+    const hit=pokemonLooseNumber(t);
+    numberAttempts.push({frame:f.label,text:t.slice(0,220),hit});
+    if(hit){
+      number=hit;
+      break;
     }
   }
+
+  // Fall back to the normal OCR only when the dedicated footer crop failed.
+  if(!number)number=baseNumber;
 
   log("Titel+Nummer OCR",{number,titleAttempts,numberAttempts,titlePreview:titleEvidence.slice(0,700)});
 
