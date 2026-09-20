@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v11 · Collector Focus</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v12 · Exact Set + Number</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v11 Collector Focus",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v12 Exact Set + Number",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -267,32 +267,110 @@ function arrayFromApi(d){
   for(const k of ["sets","products","cards","results","data"])if(Array.isArray(d?.[k]))return d[k];
   return[];
 }
-async function trackingPokemonByCollector(collector,text){
-  if(!collector)return null;
-  const hints=setHints(text);
-  log("TCGTracking Nummer-Fallback",{collector,hints});
-  for(const h of hints.slice(0,5)){
-    let sets=[];
-    try{sets=arrayFromApi(await req(API+"/3/search?q="+encodeURIComponent(h),{},"Set-Suche "+h,true))}catch{}
-    for(const set of sets.slice(0,6)){
-      const sid=set.id??set.set_id;
-      if(!sid)continue;
-      try{
-        const cards=arrayFromApi(await req(API+"/3/sets/"+sid+"/cards",{},"Set-Karten "+sid,true));
-        const wanted=collectorNorm(collector.full),local=collectorNorm(collector.local);
-        const exact=cards.filter(p=>collectorNorm(p.number)===wanted);
-        const loose=exact.length?exact:cards.filter(p=>{
-          const n=collectorNorm(p.number);
-          return n===local||n.startsWith(local+"/");
-        });
-        if(loose.length===1){
-          log("TCGTracking Nummer-Treffer",{hint:h,set:set.name||set.set_name,set_id:sid,product_id:loose[0].id,name:loose[0].name,number:loose[0].number});
-          return loose[0];
-        }
-        if(loose.length>1)log("Mehrere Nummer-Treffer",{hint:h,set_id:sid,count:loose.length,names:loose.slice(0,5).map(x=>x.name)});
-      }catch(e){log("Set-Karten "+sid+" fehlgeschlagen: "+e.message)}
+function setCodeCandidates(text){
+  const u=String(text||"").toUpperCase().replace(/[|\\]/g," ");
+  const stop=new Set(["BASIC","ENERGY","POKEMON","NINTENDO","CREATURES","GAME","FREAK","RARE","ILLUS","RETREAT","WEAKNESS","RESISTANCE","ATTACK","DAMAGE","THIS","YOUR","FROM","WITH","CARD","CARDS"]);
+  const out=[],seen=new Set();
+  const add=(raw,near)=>{
+    let v=String(raw||"").replace(/[^A-Z0-9-]/g,"");
+    if(v.length<2||v.length>6||stop.has(v)||!/[A-Z]/.test(v))return;
+    if(!near && v.length<3)return;
+    const key=v+"|"+(near?1:0);
+    if(seen.has(key))return;seen.add(key);
+    out.push({code:v,nearCollector:!!near});
+  };
+  const lines=u.split(/\n+/);
+  for(const line of lines){
+    const near=/\d{2,3}\s*\/\s*\d{2,3}/.test(line);
+    if(!near)continue;
+    for(const m of line.matchAll(/\b[A-Z0-9-]{2,6}\b/g))add(m[0],true);
+  }
+  for(const line of lines){
+    for(const m of line.matchAll(/\b[A-Z0-9-]{3,5}\b/g))add(m[0],false);
+  }
+  return out.slice(0,14)
+}
+function setCodeVariants(code){
+  const v=String(code||"").toUpperCase().replace(/[^A-Z0-9-]/g,""),a=[v];
+  if(/[01]/.test(v))a.push(v.replace(/1/g,"I"),v.replace(/0/g,"O"),v.replace(/1/g,"I").replace(/0/g,"O"));
+  if(/[IO]/.test(v))a.push(v.replace(/I/g,"1"),v.replace(/O/g,"0"));
+  return unique(a.filter(Boolean))
+}
+function setAbbr(s){
+  return String(s?.abbr??s?.set_abbr??s?.abbreviation??s?.code??s?.short_code??s?.shortName??"").toUpperCase().replace(/[^A-Z0-9-]/g,"")
+}
+async function pokemonSetsByOcr(text){
+  const codes=setCodeCandidates(text);
+  if(!codes.length){log("Kein Set-Code sicher aus OCR gelesen.");return[]}
+  let sets=[];
+  try{sets=arrayFromApi(await req(API+"/3/sets",{},"Pokémon Set-Liste",true))}catch(e){log("Pokémon Set-Liste fehlgeschlagen: "+e.message);return[]}
+  const found=[],keys=new Set();
+  for(const c of codes){
+    const vars=setCodeVariants(c.code);
+    for(const s of sets){
+      const ab=setAbbr(s);
+      if(!ab||!vars.includes(ab))continue;
+      const sid=s.id??s.set_id;if(!sid)continue;
+      const k=String(sid);if(keys.has(k))continue;keys.add(k);
+      found.push({set:s,code:c.code,abbr:ab,nearCollector:c.nearCollector});
     }
   }
+  found.sort((a,b)=>(Number(b.nearCollector)-Number(a.nearCollector)));
+  log("Set-Code Treffer",found.slice(0,8).map(x=>({ocr:x.code,abbr:x.abbr,nearCollector:x.nearCollector,id:x.set.id??x.set.set_id,name:x.set.name||x.set.set_name})));
+  return found.slice(0,6)
+}
+async function trackingPokemonByCollector(collector,text,setMatches=null){
+  if(!collector||collector.kind!=="numeric"||(collector.confidence||0)<145){
+    if(collector)log("Nummer-Treffer nicht streng genug für Direktwahl",collector);
+    return null
+  }
+  const matches=setMatches||await pokemonSetsByOcr(text);
+  const strict=matches.filter(x=>x.nearCollector);
+  if(!strict.length){log("Kein Set-Code direkt neben sicherer Kartennummer – keine 98%-Direktwahl.");return null}
+  const wanted=collectorNorm(collector.full);
+  const hits=[];
+  for(const m of strict.slice(0,4)){
+    const sid=m.set.id??m.set.set_id;
+    try{
+      const cards=arrayFromApi(await req(API+"/3/sets/"+sid+"/cards",{},"Set-Karten "+sid,true));
+      for(const p of cards){
+        if(collectorNorm(p.number)===wanted)hits.push({product:p,set:m.set,code:m.abbr})
+      }
+    }catch(e){log("Set-Karten "+sid+" fehlgeschlagen: "+e.message)}
+  }
+  const uniq=[...new Map(hits.map(x=>[x.product.id,x])).values()];
+  if(uniq.length===1){
+    const x=uniq[0];
+    log("EXAKTER Set+Nummer Treffer",{set:x.set.name||x.set.set_name,setCode:x.code,product_id:x.product.id,name:x.product.name,number:x.product.number});
+    return{...x,method:"Set-Code + Kartennummer"}
+  }
+  if(uniq.length>1)log("Set+Nummer noch mehrdeutig",uniq.map(x=>({name:x.product.name,number:x.product.number,set:x.set.name||x.set.set_name})));
+  return null
+}
+async function scanPokemonKnownSet(apiImg,setMatches,collector){
+  if(!setMatches?.length)return null;
+  const ids=unique(setMatches.map(x=>x.set.id??x.set.set_id).filter(Boolean)).slice(0,6);
+  if(!ids.length)return null;
+  try{
+    const d=await req(API+"/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game_id:3,set_ids:ids,limit:10,image:apiImg})},"Scan Pokémon Set-Code");
+    const rs=(d.results||[]).slice().sort((a,b)=>Number(b.score||0)-Number(a.score||0));
+    if(!rs.length)return null;
+    if(collector&&collector.kind==="numeric"&&(collector.confidence||0)>=145){
+      const wanted=collectorNorm(collector.full);
+      const exact=rs.filter(x=>collectorNorm(x.number)===wanted);
+      if(exact.length){
+        const best=exact[0];
+        log("Set-Scan + Nummer bestätigt",{name:best.name,number:best.number,rawScore:best.score,set_ids:ids});
+        return{top:best,score:Math.max(97,Number(best.score||0)),method:"Set-Code + Kartennummer + Bild"}
+      }
+    }
+    const top=rs[0],second=rs[1],gap=Number(top.score||0)-Number(second?.score||0);
+    if(Number(top.score||0)>=58&&gap>=6){
+      log("Set-Scan Sieger",{name:top.name,number:top.number,score:top.score,gap,set_ids:ids});
+      return{top,score:Number(top.score||0),method:"Set-Code + Bild"}
+    }
+    log("Set-Scan nicht eindeutig",rs.slice(0,5).map(x=>({name:x.name,number:x.number,score:x.score})));
+  }catch(e){log("Set-Scan fehlgeschlagen: "+e.message)}
   return null
 }
 async function recentPokemonScan(apiImg){
@@ -548,9 +626,12 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   log("Pokémon Detail-OCR",{topText,attackText,numberText,collector:fine.collector,attackPhrases:pokemonAttackPhrases(baseText+"\n"+bottomText)});
 
   const pc=await pokemonCandidates(baseText,topText,bottomText,fine.collector);
-  const directProduct=await trackingPokemonByCollector(pc.collector,[numberText,bottomText,topText,baseText].join("\n"));
+  const evidenceText=[numberText,bottomText,topText,baseText].join("\n");
+  const setMatches=await pokemonSetsByOcr(evidenceText);
+  const directProduct=await trackingPokemonByCollector(pc.collector,evidenceText,setMatches);
   if(directProduct){
-    return{kind:"tracking",id:3,score:98,top:{product_id:directProduct.id,score:98,name:directProduct.name,number:directProduct.number,set_id:directProduct.set_id}}
+    const p=directProduct.product;
+    return{kind:"tracking",id:3,score:99,method:directProduct.method,top:{product_id:p.id,score:99,name:p.name,number:p.number,set_id:p.set_id}}
   }
 
   const scored=[];
@@ -580,12 +661,22 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
     matcherImg=mc.d;
     log("Matcher-Crop verfeinert",{kb:Math.round(mc.bytes/1024),quality:mc.q,frame:rectStats(i,detailRect)});
   }
+
+  const setScan=await scanPokemonKnownSet(matcherImg,setMatches,pc.collector);
+  if(setScan)return{kind:"tracking",id:3,score:setScan.score,method:setScan.method,top:setScan.top};
+
   const r=await sg(3,matcherImg);
-  if(r.top&&r.score>=72)return{kind:"tracking",id:3,score:r.score,top:r.top};
+  if(r.top&&r.score>=72){
+    if(pc.collector&&pc.collector.kind==="numeric"&&(pc.collector.confidence||0)>=145&&collectorNorm(r.top.number)!==collectorNorm(pc.collector.full)){
+      log("Globaler Bildtreffer wegen starker OCR-Nummer verworfen",{ocrNumber:pc.collector.full,matchName:r.top.name,matchNumber:r.top.number,matchScore:r.score});
+    }else{
+      return{kind:"tracking",id:3,score:r.score,method:"Bild-Match",top:r.top}
+    }
+  }
   const recent=await recentPokemonScan(matcherImg);
   if(recent?.top&&recent.score>=58){
     log("Recent-Set Sieger",{score:recent.score,name:recent.top.name,product_id:recent.top.product_id});
-    return{kind:"tracking",id:3,score:recent.score,top:recent.top}
+    return{kind:"tracking",id:3,score:recent.score,method:"Recent-Set Bild-Match",top:recent.top}
   }
   throw new Error("Pokémon erkannt, aber die konkrete Karte noch nicht sicher genug. Bitte Karte ohne starke Spiegelung und etwas näher fotografieren.")
 }
@@ -652,7 +743,7 @@ function showTracking(g,m,d){
   $("#cardImg").src=p.image_url||"";
   $("#rPrice").textContent=d.min?(d.min===d.max?usd(d.min):usd(d.min)+" – "+usd(d.max)):"Kein Preis";
   $("#rSmall").textContent=d.min?"TCG-Marktpreis je nach Variante/Sprache":"Keine Preisdaten für diesen Treffer";
-  $("#rScore").textContent="Bild-Match: "+Math.round(m.score)+" %";
+  $("#rScore").textContent=(m.method||"Bild-Match")+": "+Math.round(m.score)+" %";
   $("#cmLink").href=cmUrl(p);$("#tcgLink").href=tcgUrl(p);$("#ebayLink").href=ebayUrl(p);
   $("#result").style.display="block";
   save({name:p.name,img:p.image_url,priceText:d.min?usd(d.min):"—"})
