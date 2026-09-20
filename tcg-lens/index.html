@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v70 · Asia Double-Proof</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v71 · Candidate Vision Lock</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v70 Asia Double-Proof",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v71 Candidate Vision Lock",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -1712,7 +1712,7 @@ function bestVisualDistance(scanIm,candidateVec){
       const sy=by+freeY/2+oy*freeY*.38;
       const v=cardVisualVectorRect(scanIm,sx,sy,sw,sh);
       const dist=visualDistance(v,candidateVec);
-      if(dist<best.dist)best={dist,scale:s,ox,oy};
+      if(dist<best.dist)best={dist,scale:s,ox,oy,sx,sy,sw,sh};
     }
   }
   return best
@@ -1722,7 +1722,7 @@ async function tcgdexVariantVisualMatch(matcherImg,rows){
   let src;
   try{src=await loadCardImage(matcherImg)}catch(e){log("TCGdex Variantenvergleich: Scanbild nicht lesbar: "+e.message);return null}
   const ranked=[];
-  for(const q of rows.slice(0,8)){
+  for(const q of rows.slice(0,10)){
     const base=q.card?.image;
     if(!base)continue;
     const urls=[base+"/high.webp",base+"/low.webp",base];
@@ -1730,24 +1730,69 @@ async function tcgdexVariantVisualMatch(matcherImg,rows){
     if(!got)continue;
     try{
       const cand=cardVisualVector(got.im),match=bestVisualDistance(src,cand);
-      ranked.push({...q,dist:match.dist,visualMatch:match});
-    }catch{}
+
+      // v71: compare the artwork/body separately as a second independent signal.
+      // Full-card comparison can be distorted by sleeves, glare and borders; the
+      // inner card artwork is much more discriminative between variants.
+      let artDist=match.dist;
+      if(Number.isFinite(match.sx)&&Number.isFinite(match.sy)&&match.sw>0&&match.sh>0){
+        const ci=got.im;
+        const cw=ci.naturalWidth||ci.width,ch=ci.naturalHeight||ci.height;
+        const ca=63/88;
+        let csx=0,csy=0,csw=cw,csh=ch;
+        if(csw/csh>ca){const nw=csh*ca;csx=(csw-nw)/2;csw=nw}
+        else if(csw/csh<ca){const nh=csw/ca;csy=(csh-nh)/2;csh=nh}
+
+        const scanArt=cardVisualVectorRect(
+          src,
+          match.sx+match.sw*.055,
+          match.sy+match.sh*.105,
+          match.sw*.89,
+          match.sh*.50
+        );
+        const candArt=cardVisualVectorRect(
+          ci,
+          csx+csw*.055,
+          csy+csh*.105,
+          csw*.89,
+          csh*.50
+        );
+        artDist=visualDistance(scanArt,candArt);
+      }
+
+      const combined=match.dist*.58+artDist*.42;
+      ranked.push({...q,dist:combined,baseDist:match.dist,artDist,visualMatch:match});
+    }catch(e){log("TCGdex Bildvergleich "+q.card.id+" fehlgeschlagen: "+e.message)}
   }
   ranked.sort((a,b)=>a.dist-b.dist);
   log("TCGdex Varianten-Bildvergleich",ranked.map(x=>({
     name:x.card.name,localId:x.card.localId,set:x.card.set?.name,
     distance:Number(x.dist.toFixed(4)),
+    full:Number(x.baseDist.toFixed(4)),
+    artwork:Number(x.artDist.toFixed(4)),
     crop:{scale:x.visualMatch?.scale,ox:x.visualMatch?.ox,oy:x.visualMatch?.oy}
   })));
   const a=ranked[0],b=ranked[1];
   if(!a)return null;
   const gap=b?b.dist-a.dist:1,ratio=b&&b.dist>0?a.dist/b.dist:0;
-  // Keep this conservative: old fixed-crop comparisons could differ by ~0.03 by chance.
-  if(!b||(a.dist<=.84&&(gap>=.045||ratio<=.94))||(a.dist<=.69&&gap>=.03)){
-    log("TCGdex Varianten-Sieger",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,distance:a.dist,gap,ratio,crop:a.visualMatch});
+
+  // A single database candidate is no longer accepted blindly. The photo must
+  // actually resemble that printing. This prevents "correct-looking title,
+  // completely wrong card" false positives.
+  if(!b){
+    if(a.dist<=.80){
+      log("TCGdex Einzelkandidat visuell bestätigt",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,distance:a.dist,full:a.baseDist,artwork:a.artDist});
+      return a
+    }
+    log("TCGdex Einzelkandidat visuell verworfen",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,distance:a.dist,full:a.baseDist,artwork:a.artDist});
+    return null
+  }
+
+  if((a.dist<=.82&&(gap>=.04||ratio<=.94))||(a.dist<=.68&&gap>=.025)){
+    log("TCGdex Varianten-Sieger",{name:a.card.name,localId:a.card.localId,set:a.card.set?.name,distance:a.dist,gap,ratio,full:a.baseDist,artwork:a.artDist,crop:a.visualMatch});
     return a
   }
-  log("TCGdex Variantenvergleich noch knapp",{best:a&&{id:a.card.id,localId:a.card.localId,distance:a.dist,crop:a.visualMatch},second:b&&{id:b.card.id,localId:b.card.localId,distance:b.dist,crop:b.visualMatch},gap,ratio});
+  log("TCGdex Variantenvergleich noch knapp",{best:a&&{id:a.card.id,localId:a.card.localId,distance:a.dist,full:a.baseDist,artwork:a.artDist,crop:a.visualMatch},second:b&&{id:b.card.id,localId:b.card.localId,distance:b.dist},gap,ratio});
   return null
 }
 
@@ -2743,6 +2788,87 @@ function pokemonEvolutionTitleHints(text){
   return out.slice(0,4);
 }
 
+function pokemonPrintedTitleHints(text){
+  const raw=String(text||""),out=[];
+  const add=x=>{
+    x=cleanPokemonTitlePhrase(String(x||""))
+      .replace(/\b(?:basic|stage\s*[12]?|phase\s*[12]?|hp)\b/gi," ")
+      .replace(/\s+/g," ").trim();
+    x=x.replace(/^[^A-Za-zÀ-ÿ]+/,"").replace(/[^A-Za-zÀ-ÿ0-9'’ .\-]+$/,"").trim();
+    if(x.length<5||x.length>42)return;
+    const n=norm(x);
+    if(/^(?:during|damage|energy|weakness|resistance|retreat|entwickelt|dynamax|angriff)/.test(n))return;
+    if(!out.some(y=>norm(y)===n))out.push(x);
+  };
+
+  for(const line0 of raw.split(/\n+/)){
+    let line=String(line0||"").replace(/[|\\]+/g," ").replace(/\s+/g," ").trim();
+    if(!line||line.length>90)continue;
+
+    // Printed title normally ends before HP. Keep the left side of a short top line.
+    const hp=line.match(/^(.*?)(?:\bHP\s*)?\b(?:[6-9]0|1\d{2}|2\d{2}|3[0-6]0)\b/i);
+    if(hp&&hp[1])add(hp[1]);
+
+    // Card forms are extremely useful even if HP was lost by OCR.
+    if(/\b(?:VMAX|VSTAR|GX|EX|ex)\b/.test(line)){
+      const form=line.match(/([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ0-9'’ .\-]{3,38}?\b(?:VMAX|VSTAR|GX|EX|ex)\b)/);
+      if(form?.[1])add(form[1]);
+    }
+
+    // Mega cards: preserve "Mega ... X/Y ex" as a phrase instead of reducing
+    // everything to the species token.
+    const mega=line.match(/\b(Mega\s+[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’\-]{3,22}(?:\s+[XY])?(?:\s+ex)?)\b/i);
+    if(mega?.[1])add(mega[1]);
+  }
+  return out.slice(0,8)
+}
+
+function pokemonTitleFormAdjustment(name,text){
+  const nn=norm(name),forms=cardFormHints(text),raw=norm(text);
+  let s=0;
+  const has=(f)=>new RegExp("(^| )"+f+"($| )").test(nn);
+  if(forms.includes("vmax"))s+=has("vmax")?95:-42;
+  else if(forms.includes("vstar"))s+=has("vstar")?95:-42;
+  else if(forms.includes("gx"))s+=has("gx")?85:-38;
+  else if(forms.includes("ex"))s+=has("ex")?85:-38;
+  if(/\bmega\b/.test(raw))s+=/\bmega\b/.test(nn)?55:-20;
+  return s
+}
+
+async function pokemonHeadlineBoostOcr(i,rect){
+  const out=[];
+  const frames=[];
+  const pushFrame=(label,r)=>{
+    if(!r)return;
+    const k=[Math.round(r.x),Math.round(r.y),Math.round(r.w),Math.round(r.h)].join(":");
+    if(!frames.some(x=>x.key===k))frames.push({label,rect:r,key:k});
+  };
+  pushFrame("Rahmen",rect);
+  pushFrame("Center 88%",centeredCardRect(i,.88));
+  pushFrame("Center 96%",centeredCardRect(i,.96));
+
+  for(const f of frames.slice(0,2)){
+    for(const mode of ["raw","contrast"]){
+      let t="";
+      try{
+        t=await ocr(
+          rawRegion(i,f.rect,.025,.015,.93,.19,2600,mode),
+          "OCR Titel-Boost "+f.label+" "+mode,
+          {tessedit_pageseg_mode:7}
+        );
+      }catch(e){log("Titel-Boost "+f.label+" "+mode+" fehlgeschlagen: "+e.message)}
+      if(t)out.push(t);
+      const hints=pokemonPrintedTitleHints(out.join("\n"));
+      if(hints.length){
+        log("Titel-Boost Hinweise",{hints,text:out.join(" | ").slice(0,500)});
+        return out.join("\n")
+      }
+    }
+  }
+  if(out.length)log("Titel-Boost ohne sauberen Titel",{text:out.join(" | ").slice(0,500)});
+  return out.join("\n")
+}
+
 function pokemonTitleQueryVariants(word){
   const w=norm(word).replace(/[^a-z0-9]/g,"");
   if(w.length<5||w.length>22||/\d/.test(w))return[];
@@ -2910,7 +3036,10 @@ async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=nul
   }
   for(const w of norm(raw).split(/\s+/))addWord(w);
 
-  const titleHints=pokemonEvolutionTitleHints(raw);
+  const titleHints=unique([
+    ...pokemonPrintedTitleHints(raw),
+    ...pokemonEvolutionTitleHints(raw)
+  ]);
   const queries=[];
   for(const hint of titleHints){
     if(!queries.includes(hint))queries.push(hint);
@@ -2981,13 +3110,33 @@ async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=nul
   for(const r of rows){
     const k=norm(r.card?.name||"");
     if(!k)continue;
+    const baseScore=r.titleScore;
+    const formScore=pokemonTitleFormAdjustment(r.card?.name||"",raw);
+    const score=baseScore+formScore;
     const old=byName.get(k);
-    if(!old||r.titleScore>old.score)byName.set(k,{name:r.card.name,key:k,score:r.titleScore});
+    if(!old||score>old.score)byName.set(k,{name:r.card.name,key:k,score,baseScore,formScore});
   }
   const names=[...byName.values()].sort((a,b)=>b.score-a.score);
   log("Titel-Frühroute Namensranking",names.slice(0,10));
 
   let best=names[0],second=names[1],selectedLang=primary;
+
+  // v71: repeated exact OCR words beat suffix variants (Roserade vs Roserade C/GL)
+  // when no printed form token says that the suffix is really on the card.
+  const formHints=cardFormHints(raw);
+  if(!formHints.length){
+    const repeatedExact=pokemonRepeatedTitleWords(raw)
+      .filter(x=>x.count>=2)
+      .map(x=>({rep:x,hit:names.find(n=>n.key===norm(x.word))}))
+      .filter(x=>x.hit&&x.hit.baseScore>=145)
+      .sort((a,b)=>b.rep.score-a.rep.score||b.hit.baseScore-a.hit.baseScore)[0];
+    if(repeatedExact&&(!best||repeatedExact.hit.score>=best.score-18)){
+      best=repeatedExact.hit;
+      second=names.find(x=>x.key!==best.key);
+      log("Titel-Frühroute Wiederholungs-Lock",{word:repeatedExact.rep.word,count:repeatedExact.rep.count,name:best.name,score:best.score,second:second?.name});
+    }
+  }
+
   if(!best||best.score<145||(second&&best.score-second.score<25)){
     log("Titel-Frühroute Name noch nicht sicher",{best,second});
     const resolved=await pokemonAmbiguousTitleContentResolve(rows,names,raw,langs);
@@ -2996,7 +3145,9 @@ async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=nul
     best={
       name:resolved.card.name||resolved.sourceName,
       key:norm(resolved.card.name||resolved.sourceName),
-      score:resolved.titleScore
+      score:resolved.titleScore+pokemonTitleFormAdjustment(resolved.card.name||resolved.sourceName,raw),
+      baseScore:resolved.titleScore,
+      formScore:pokemonTitleFormAdjustment(resolved.card.name||resolved.sourceName,raw)
     };
     selectedLang=resolved.lang||primary;
     log("Titel-Frühroute Name über Karteninhalt",{
@@ -3071,7 +3222,11 @@ async function pokemonTitleFirstVariantLock(i,text,matcherImg,scale=.96,rect=nul
   if(same.length===1){
     const q=same[0];
     log("Titel-Frühroute einzig echte Variante",{name:q.card?.name,localId:q.card?.localId,set:q.card?.set?.name});
-    return{kind:"tcgdex",id:3,score:99,lang:q.lang,card:q.card,method:"Titel eindeutig"};
+    const visuallyConfirmed=await tcgdexVariantVisualMatch(matcherImg,[q]);
+    if(visuallyConfirmed){
+      return{kind:"tcgdex",id:3,score:99,lang:q.lang,card:q.card,method:"Titel eindeutig + Bild bestätigt"};
+    }
+    log("Titel-Frühroute Einzelvariante nicht visuell bestätigt",{name:q.card?.name,localId:q.card?.localId,set:q.card?.set?.name});
   }
 
   // Before more OCR, compare attacks/abilities already visible in the normal scan.
@@ -3185,9 +3340,17 @@ async function pokemonTitleNumberOnly(i,baseText,rect,matcherImg=null,scale=.96)
     }
   }
 
-  // v62: if the ordinary card OCR already contains a readable Pokémon name
-  // (e.g. "VibravaSe" / "QVibravaS"), resolve that name BEFORE running any
-  // expensive extra title/footer OCR. Then only distinguish variants of that name.
+  // v71: if normal OCR has no strong printed title, run two very tight headline
+  // reads first. This is far cheaper and more useful than OCRing giant regions.
+  const existingPrinted=pokemonPrintedTitleHints(titleEvidence);
+  const existingRepeated=pokemonRepeatedTitleWords(titleEvidence).some(x=>x.count>=2);
+  if(!existingPrinted.length&&!existingRepeated){
+    const boostedTitle=await pokemonHeadlineBoostOcr(i,rect);
+    if(boostedTitle)titleEvidence+="\n"+boostedTitle;
+  }
+
+  // Resolve the title before expensive footer sweeps. Candidate selection then
+  // uses form + attacks + collector number + visual artwork.
   const titleFirst=await pokemonTitleFirstVariantLock(i,titleEvidence,matcherImg,scale,rect);
   if(titleFirst){
     log("TITEL FRÜH SIEGER",{name:titleFirst.card?.name,localId:titleFirst.card?.localId,set:titleFirst.card?.set?.name,method:titleFirst.method});
@@ -3316,7 +3479,10 @@ async function pokemonTitleNumberOnly(i,baseText,rect,matcherImg=null,scale=.96)
       .filter(x=>x.length>=5&&x.length<=18&&!banned.has(x)&&!/\d/.test(x))
   ]);
 
-  const derivedTitleHints=pokemonEvolutionTitleHints(titleEvidence);
+  const derivedTitleHints=unique([
+    ...pokemonPrintedTitleHints(titleEvidence),
+    ...pokemonEvolutionTitleHints(titleEvidence)
+  ]);
   const titleQueries=[];
   for(const hint of derivedTitleHints){
     if(!titleQueries.includes(hint))titleQueries.push(hint);
