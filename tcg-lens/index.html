@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v24 · Variant Number + Smart Crop</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v25 · Trainer Auto Route</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v24 Variant Number + Smart Crop",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v25 Trainer Auto Route",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -638,6 +638,7 @@ function ocrQuality(text){
   let s=Math.min(t.length,140)/14+ws.length*.35;
   if(/pokemon|poxemon|pokemen|rokemen|pokenon|nintendo|nertenao|game freak|energy|energie|weakness|resistance|retreat|\bhp\b|\bbasic\b|spell card|trap card|creature|instant|sorcery|don!!|storyborn|riftbound|gundam/.test(t))s+=10;
   if(/attack.{0,24}damage|damage.{0,24}energy|energy.{0,24}attached|all.{0,20}(pokemon|pokemen|rokemen)/.test(t))s+=8;
+  if(pokemonTrainerLike(raw)>=3)s+=8;
   if(/\b\d{2,3}\s*\/\s*\d{2,3}\b/.test(raw))s+=12;
   return s
 }
@@ -658,6 +659,19 @@ async function bestOcr(i,rect=null){
   log("Bester OCR-Crop",{scale:best.scale,q:best.q,text:best.text.slice(0,500),routeChars:routeText.length});
   return{...best,routeText}
 }
+function pokemonTrainerLike(text){
+  const t=norm(text);
+  let s=0;
+  // Pokémon's trainer-card vocabulary is quite different from MTG/Yu-Gi-Oh in these languages.
+  if(/pokemon[- ]?ausri|pokemon tool|outil pokemon|herramienta pokemon|strumento pokemon/.test(t))s+=5;
+  if(/ablagestapel|discard pile|pile de defausse|pila de descartes|pila degli scarti/.test(t))s+=3;
+  if(/itemkarten?|item card|supporter card|unterstutzerkarte|stadionkarte|stadium card/.test(t))s+=4;
+  if(/wahrend deines zuges|during your turn|pendant votre tour|durante tu turno|durante il tuo turno/.test(t))s+=2;
+  if(/obersten.{0,18}karten.{0,18}deines decks|top.{0,12}cards.{0,18}your deck/.test(t))s+=3;
+  if(/beliebig.{0,20}ablagestapel|any number.{0,20}discard/.test(t))s+=2;
+  if(/reihenfolge.{0,20}(deck|zuruck)|any order.{0,20}deck/.test(t))s+=2;
+  return s
+}
 function gameFromText(text){
   const t=norm(text);
   const score={3:0,2:0,1:0,68:0,71:0,89:0,86:0};
@@ -670,7 +684,9 @@ function gameFromText(text){
   hit(3,/weakness|resistance|retreat/,1);
   hit(3,/schaden|attacke|angriff|fahigkeit|entwickelt|ruckzug|schwache|preiskarte|kampfunfahig/,2);
   hit(3,/giga[\s\-]/,2);
-  hit(3,/evolves\s+from|dynamax|max\s*cure|maxi\s*cure|max\s+rule|prize\s+cards?|knocked\s+out/,4);
+  const trainerScore=pokemonTrainerLike(text);
+  if(trainerScore)score[3]+=trainerScore;
+  hit(3,/evolves\s+from|dynamax|max\s*cure|maxi\s+cure|max\s+rule|prize\s+cards?|knocked\s+out/,4);
   hit(3,/gardevoir|charizard|pikachu|xerneas|mewtwo|eevee|snorlax/,2);
   hit(2,/spell card|trap card|effect monster|fusion monster|synchro|xyz monster|atk\s*\/|def\s*\//,3);
   hit(1,/creature|instant|sorcery|enchantment|planeswalker|artifact|summon/,3);
@@ -791,6 +807,19 @@ function pokemonTitlePhrases(text){
   }
   return unique(out).slice(0,10)
 }
+function pokemonSingleTitleWords(text){
+  if(pokemonTrainerLike(text)<3)return[];
+  const banned=new Set("pokemon trainer item supporter stadion stadium karte karten deck decks ablagestapel zug zuges wahrend beliebig reihenfolge spielen ausristung ausriistung energie energy schaden attacke gegner".split(" "));
+  const out=[];
+  for(const raw of String(text||"").split(/\n+/)){
+    const line=cleanPokemonTitlePhrase(raw);
+    if(!/^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’\-]{3,20}$/.test(line))continue;
+    const n=norm(line);
+    if(banned.has(n))continue;
+    if(!out.some(x=>norm(x)===n))out.push(line);
+  }
+  return out.slice(0,6)
+}
 function pokemonAttackHints(text){
   const t=norm(text),h=[];
   for(const k of ["storm","charge","blast","beam","strike","claw","fang","pulse","shot","wave","crash","spark","flame","punch","kick","cannon","breath","wing","bite"]){if(t.includes(k))h.push(k)}
@@ -819,7 +848,7 @@ function pokemonAttackPhrases(text){
 }
 function pokemonLangOrder(text){
   const t=norm(text);
-  if(/energie|schaden|angriff|fahigkeit|entwickelt|gegner|angelegt|zugefugt|pulveri/.test(t))return["de","en","fr","es","it","pt"];
+  if(/energie|schaden|angriff|fahigkeit|entwickelt|gegner|angelegt|zugefugt|pulveri|ablagestapel|wahrend deines zuges|reihenfolge|itemkarten|ausristung|ausriistung/.test(t))return["de","en","fr","es","it","pt"];
   if(/energie|degats|adversaire|attaque/.test(t))return["fr","en","de","es","it","pt"];
   if(/energia|ataque|debilidad|retirada/.test(t))return["es","en","de","fr","it","pt"];
   return["en","de","fr","es","it","pt"]
@@ -835,10 +864,11 @@ async function pokemonCandidates(fullText,topText,bottomText,forcedCollector=nul
   }else log("Keine sichere Sammler-Nummer aus OCR.");
   const topWords=pickDistinctive(topText).slice(0,4);
   const titlePhrases=pokemonTitlePhrases(fullText);
+  const singleTitles=pokemonSingleTitleWords(fullText);
   const attackPhrases=pokemonAttackPhrases(allText);
   const attackHints=pokemonAttackHints(allText);
   const fullWords=unique([...attackHints,...pickDistinctive(fullText).filter(x=>!topWords.includes(x))]).slice(0,7);
-  log("OCR Suchwörter",{topWords,titlePhrases,attackPhrases,attackHints,fullWords});
+  log("OCR Suchwörter",{topWords,titlePhrases,singleTitles,attackPhrases,attackHints,fullWords});
   let calls=0;
   // First try complete title-like lines. This is critical for Trainer/Item/Stadium cards.
   for(const lang of langs){
@@ -852,6 +882,23 @@ async function pokemonCandidates(fullText,topText,bottomText,forcedCollector=nul
       }catch(e){log("Titel-Suche "+phrase+" "+lang+" fehlgeschlagen: "+e.message)}
     }
     if(found.size>0)break
+  }
+  // Trainer/Supporter names are often one clean word ("Moira", "Marnie", "Cynthia"...).
+  // Search those as names, not as attack text.
+  if(found.size===0&&singleTitles.length){
+    for(const lang of langs.slice(0,2)){
+      for(const title of singleTitles){
+        if(calls>=16||found.size>35)break;
+        calls++;
+        try{
+          const a=await req(TDX+"/"+lang+"/cards?name="+encodeURIComponent(title),{},"TCGdex Einwort-Titel "+title+" "+lang,true);
+          const exact=Array.isArray(a)?a.filter(x=>norm(x.name)===norm(title)):[];
+          log("Einwort-Titel Ergebnis",{lang,title,count:Array.isArray(a)?a.length:0,exact:exact.slice(0,8).map(x=>({id:x.id,name:x.name,localId:x.localId}))});
+          if(exact.length&&exact.length<=25)add(lang,exact,"name:"+title);
+        }catch(e){log("Einwort-Titel "+title+" "+lang+" fehlgeschlagen: "+e.message)}
+      }
+      if(found.size>0)break
+    }
   }
   for(const lang of langs){
     for(const w of topWords){
