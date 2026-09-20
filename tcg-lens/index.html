@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v19 · Candidate Visual Match</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v20 · Safe Variant Match</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v19 Candidate Visual Match",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v20 Safe Variant Match",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -400,20 +400,22 @@ async function trackingPokemonByCollector(collector,text,setMatches=null){
   return null
 }
 function cardFormHints(text){
-  const t=norm(text),out=[];
+  const t=norm(text),out=[],raw=String(text||"");
   for(const f of ["vmax","vstar","gx"," ex "," ex\n"," ex$"]){
     if(f===" ex "||f===" ex\n"||f===" ex$")continue;
     if(t.includes(f))out.push(f)
   }
-  if(/\bvmax\b|\bvinx\b|\bumax\b|max.{0,5}(rule|regel)|dynamax|evolves\s+from/i.test(String(text||"")))out.push("vmax");
-  if(/\bvstar\b/i.test(String(text||"")))out.push("vstar");
-  if(/\bgx\b/i.test(String(text||"")))out.push("gx");
+  // Real iPhone OCR examples: "DuraludonVinx", "vax Duraludon Vax", "umax".
+  // G-Max/Giga-Max attack text is also a strong VMAX clue.
+  if(/\bvmax\b|\bvinx\b|\bvax\b|\bvmx\b|\bumax\b|max.{0,5}(rule|regel)|dynamax|g[ -]?max|giga.{0,8}(pulver|attack)|evolves\s+from/i.test(raw))out.push("vmax");
+  if(/\bvstar\b/i.test(raw))out.push("vstar");
+  if(/\bgx\b/i.test(raw))out.push("gx");
   return unique(out)
 }
 function pokemonNameScore(name,ocrText){
   const nn=norm(name),ot=norm(ocrText);
   if(!nn||!ot)return 0;
-  const formStop=new Set(["pokemon","basic","stage","v","vmax","vstar","gx","ex"]);
+  const formStop=new Set(["pokemon","basic","stage","v","vmax","vstar","gx","ex","secret","alternate","art","full","rainbow","rare","holo","promo"]);
   const nw=nn.split(" ").filter(x=>x.length>=4&&!formStop.has(x));
   const ow=unique(ot.split(" ").filter(x=>x.length>=4));
   let s=0,hits=0;
@@ -910,6 +912,58 @@ function visualDistance(a,b){
   for(let i=0;i<a.rgb.length;i++)c+=Math.abs(a.rgb[i]-b.rgb[i]);
   return .72*(l/a.lum.length)+.28*(c/a.rgb.length);
 }
+function legacyPokemonSetId(set){
+  const ab=setAbbr(set);
+  let m=ab.match(/^(SWSH|SV|SM|XY|BW|DP)0?(\d{1,2})$/i);
+  if(m)return m[1].toLowerCase()+String(Number(m[2]));
+  // A few common aliases that do not follow the simple numeric form.
+  const aliases={EVS:"swsh7",CRZ:"swsh12pt5",BRS:"swsh9",LOR:"swsh11",SIT:"swsh12",FST:"swsh8",CRE:"swsh6",BST:"swsh5",VIV:"swsh4",DAA:"swsh3",RCL:"swsh2",SSH:"swsh1"};
+  return aliases[ab]||null
+}
+function legacyPokemonNumber(number){
+  const a=String(number||"").split("/")[0].trim();
+  if(!a)return"";
+  if(/^\d+$/.test(a))return String(Number(a));
+  return a.replace(/[^A-Za-z0-9]/g,"")
+}
+function legacyPokemonImageUrls(q){
+  const sid=legacyPokemonSetId(q.set),num=legacyPokemonNumber(q.card?.number);
+  if(!sid||!num)return[];
+  return[
+    "https://images.pokemontcg.io/"+sid+"/"+encodeURIComponent(num)+"_hires.png",
+    "https://images.pokemontcg.io/"+sid+"/"+encodeURIComponent(num)+".png"
+  ]
+}
+const legacyPokemonCache=new Map();
+async function legacyPokemonCard(q){
+  const setName=String(q.set?.name||q.set?.set_name||"").replace(/^\s*[A-Z0-9-]+\s*:\s*/,"").trim();
+  const num=legacyPokemonNumber(q.card?.number);
+  if(!setName||!num)return null;
+  const key=setName+"|"+num;
+  if(legacyPokemonCache.has(key))return legacyPokemonCache.get(key);
+  const p=(async()=>{
+    try{
+      const query='set.name:"'+setName.replace(/"/g,"")+'" number:'+num;
+      const url="https://api.pokemontcg.io/v2/cards?q="+encodeURIComponent(query)+"&pageSize=8&select=id,name,number,rarity,artist,images,set,tcgplayer,cardmarket";
+      const r=await fetch(url,{cache:"force-cache"});
+      if(!r.ok)throw new Error("HTTP "+r.status);
+      const d=await r.json(),rows=Array.isArray(d?.data)?d.data:[];
+      const exact=rows.find(x=>legacyPokemonNumber(x.number)===num);
+      if(exact)log("Pokémon Legacy-Treffer",{name:exact.name,number:exact.number,set:exact.set?.name,image:!!exact.images?.large});
+      return exact||null
+    }catch(e){log("Pokémon Legacy-API nicht verfügbar: "+e.message);return null}
+  })();
+  legacyPokemonCache.set(key,p);return p
+}
+async function firstComparableImage(urls,label){
+  let last=null;
+  for(const url of unique((urls||[]).filter(Boolean))){
+    try{return{im:await loadCardImage(url),url}}
+    catch(e){last=e}
+  }
+  if(last)log(label+" nicht vergleichbar: "+last.message);
+  return null
+}
 async function pokemonCandidateVisualMatch(matcherImg,candidates){
   if(!matcherImg||!candidates?.length)return null;
   let src;
@@ -919,18 +973,24 @@ async function pokemonCandidateVisualMatch(matcherImg,candidates){
 
   const ranked=[];
   for(const q of candidates.slice(0,8)){
-    let url=q.card.image_url||q.card.image||"";
-    if(!url){
-      try{
-        const pd=await req(API+"/products/"+q.card.id,{},"Kandidatenbild "+q.card.id,true);
-        const pp=prod(pd);url=pp?.image_url||"";
-      }catch{}
-    }
-    if(!url)continue;
+    const urls=[];
+    if(q.card.image_url)urls.push(q.card.image_url);
+    if(q.card.image)urls.push(q.card.image);
     try{
-      const im=await loadCardImage(url),dist=visualDistance(srcVec,cardVisualVector(im));
-      ranked.push({...q,dist,url});
-    }catch(e){log("Kandidatenbild "+q.card.id+" nicht vergleichbar: "+e.message)}
+      const pd=await req(API+"/products/"+q.card.id,{},"Kandidatenbild "+q.card.id,true);
+      const pp=prod(pd);if(pp?.image_url)urls.push(pp.image_url);
+    }catch{}
+    urls.push(...legacyPokemonImageUrls(q));
+    const legacy=await legacyPokemonCard(q);
+    if(legacy?.images?.large)urls.push(legacy.images.large);
+    if(legacy?.images?.small)urls.push(legacy.images.small);
+
+    const got=await firstComparableImage(urls,"Kandidatenbild "+q.card.id);
+    if(!got)continue;
+    try{
+      const dist=visualDistance(srcVec,cardVisualVector(got.im));
+      ranked.push({...q,dist,url:got.url,legacy});
+    }catch(e){log("Kandidatenbild "+q.card.id+" Vektor fehlgeschlagen: "+e.message)}
   }
   ranked.sort((a,b)=>a.dist-b.dist);
   log("Lokaler Varianten-Bildvergleich",ranked.map(x=>({name:x.card.name,number:x.card.number,distance:Number(x.dist.toFixed(4)),image:!!x.url})));
@@ -975,6 +1035,7 @@ async function pokemonSetNameRecovery(text,matcherImg,setMatches){
   const formFiltered=(forms.includes("vmax")?candidates.filter(x=>/\bvmax\b/.test(norm(x.card.name))):
                      forms.includes("vstar")?candidates.filter(x=>/\bvstar\b/.test(norm(x.card.name))):candidates);
   const visualPool=formFiltered.length?formFiltered:candidates;
+  log("Set+Name Form-Filter",{forms,before:candidates.length,after:visualPool.length,names:visualPool.slice(0,8).map(x=>x.card.name+" "+(x.card.number||""))});
 
   // If OCR leaves exactly one plausible product, no extra image guess is needed.
   if(visualPool.length===1){
@@ -1156,15 +1217,28 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   }
   scored.sort((a,b)=>b.score-a.score);
   log("Pokémon Ranking",scored.slice(0,8).map(x=>({score:x.score,lang:x.lang,id:x.card.id,name:x.card.name,localId:x.card.localId,why:x.why})));
-  if(scored[0]&&(scored[0].score>=12||scored.length===1)){
-    const gap=scored[0].score-(scored[1]?.score||0);
-    log("Pokémon Sieger",{name:scored[0].card.name,localId:scored[0].card.localId,score:scored[0].score,gap,why:scored[0].why});
-    if(scored.length===1||gap>=4||scored[0].score>=42)return{kind:"tcgdex",id:3,score:Math.min(99,60+scored[0].score),lang:scored[0].lang,card:scored[0].card};
-    const sameName=scored.filter(x=>norm(x.card.name)===norm(scored[0].card.name)&&x.score>=scored[0].score-3);
+  const cleanSetName=s=>norm(String(s||"").replace(/^\s*[A-Z0-9-]+\s*:\s*/,""));
+  const lockedSets=signatureMatches.map(x=>cleanSetName(x.set?.name||x.set?.set_name)).filter(Boolean);
+  const decisionScored=lockedSets.length?scored.filter(x=>{
+    const sn=cleanSetName(x.card?.set?.name||"");
+    return lockedSets.some(w=>sn===w||sn.includes(w)||w.includes(sn))
+  }):scored;
+  if(lockedSets.length)log("Starke Set-Signatur sperrt Fremdtreffer",{sets:lockedSets,before:scored.length,after:decisionScored.length});
+
+  if(decisionScored[0]&&decisionScored[0].score>=26){
+    const gap=decisionScored[0].score-(decisionScored[1]?.score||0);
+    log("Pokémon Sieger",{name:decisionScored[0].card.name,localId:decisionScored[0].card.localId,score:decisionScored[0].score,gap,why:decisionScored[0].why});
+    if((decisionScored.length===1&&decisionScored[0].score>=30)||gap>=5||decisionScored[0].score>=42)return{kind:"tcgdex",id:3,score:Math.min(99,60+decisionScored[0].score),lang:decisionScored[0].lang,card:decisionScored[0].card};
+    const sameName=decisionScored.filter(x=>norm(x.card.name)===norm(decisionScored[0].card.name)&&x.score>=decisionScored[0].score-3);
     if(sameName.length>1){
       log("Pokémon Variante noch uneindeutig",sameName.slice(0,6).map(x=>({name:x.card.name,localId:x.card.localId,rarity:x.card.rarity,score:x.score})));
-      throw new Error("Pokémon und Kartenname erkannt ("+scored[0].card.name+"), aber die genaue Variante/Kartennummer ist noch nicht sicher. Bitte die Kartennummer unten links etwas näher und scharf fotografieren.");
+      throw new Error("Pokémon und Kartenname erkannt ("+decisionScored[0].card.name+"), aber die genaue Variante/Kartennummer ist noch nicht sicher. Bitte die Kartennummer unten links etwas näher und scharf fotografieren.");
     }
+  }
+
+  if(signatureMatches.length){
+    log("Starke Set-Signatur bleibt aktiv – globaler Fremdset-Fallback blockiert.",signatureMatches.map(x=>({set:x.set.name,id:x.set.id})));
+    throw new Error("Pokémon, Kartenname und Set erkannt, aber die genaue Variante ist noch nicht sicher. Bitte die Kartennummer unten links scharf fotografieren.");
   }
 
   log("OCR-Datenbanktreffer nicht sicher genug – globaler Bild-Matcher wird als letzter Fallback genutzt.");
