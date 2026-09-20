@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v29 · History + Export</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v30 · Japan Footer Route</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v29 History + Export",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v30 Japan Footer Route",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -294,7 +294,7 @@ function arrayFromApi(d){
 }
 function collectorLikeText(line){
   const u=String(line||"").toUpperCase();
-  return /\d{2,3}\s*\/\s*\d{2,3}/.test(u)||/\d{3}\s*[71IT]\s*\d{3}/.test(u)
+  return /\d{2,3}\s*\/\s*\d{2,3}/.test(u)||/\d{3}\s*[71IT]\s*\d{3}/.test(u)||/\d{3}\s*(?:[.,;:·]\s*){1,3}\d{3}/.test(u)
 }
 function setCodeCandidates(text){
   const u=String(text||"").toUpperCase().replace(/[|\\]/g," ");
@@ -379,8 +379,81 @@ async function pokemonSetsByOcr(text){
   log("Set-Code Treffer",filtered.slice(0,18).map(x=>({ocr:x.code,abbr:x.abbr,distance:x.distance,nearCollector:x.nearCollector,score:x.score,id:x.set.id??x.set.set_id,name:x.set.name||x.set.set_name})));
   return filtered.slice(0,18)
 }
+function japanesePrintedSetCodes(text){
+  const u=String(text||"").toUpperCase().replace(/[|\\]/g," ");
+  const out=[];
+  const re=/\b(?:SV\d{1,2}[A-Z]?|S\d{1,2}[A-Z]?|SM\d{1,2}[A-Z]?|XY\d{1,2}[A-Z]?|BW\d{1,2}[A-Z]?|DP\d{1,2}[A-Z]?|SV-P|S-P|SM-P|XY-P)\b/g;
+  for(const m of u.matchAll(re))out.push(m[0]);
+  return unique(out)
+}
+async function pokemonJapanFooterRoute(text,collector,apiImg){
+  const codes=japanesePrintedSetCodes(text);
+  if(!codes.length)return null;
+  log("Japan-Footer Set-Codes",codes);
+
+  if(!collector||!["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130){
+    log("Japan-Footer: Set-Code da, Nummer noch nicht stark genug",collector||null);
+    return null
+  }
+
+  let sets=[];
+  try{sets=arrayFromApi(await req(API+"/85/sets",{},"Pokémon Japan Set-Liste",true))}
+  catch(e){log("Pokémon Japan Set-Liste fehlgeschlagen: "+e.message);return null}
+  if(!sets.length)return null;
+
+  const matches=[];
+  for(const code of codes){
+    for(const raw of setCodeVariants(code)){
+      for(const set of sets){
+        const ab=setAbbr(set);if(!ab)continue;
+        const d=editDistance(raw,ab),maxLen=Math.max(raw.length,ab.length);
+        if(d>1||maxLen>7)continue;
+        let score=d===0?160:118;
+        const sid=set.id??set.set_id;if(!sid)continue;
+        matches.push({set,code,abbr:ab,distance:d,score,sid});
+      }
+    }
+  }
+  matches.sort((a,b)=>b.score-a.score);
+  const bestBySet=[...new Map(matches.map(x=>[String(x.sid),x])).values()].sort((a,b)=>b.score-a.score).slice(0,12);
+  log("Japan-Footer Set-Treffer",bestBySet.map(x=>({ocr:x.code,abbr:x.abbr,distance:x.distance,id:x.sid,name:x.set.name||x.set.set_name,score:x.score})));
+  if(!bestBySet.length)return null;
+
+  const wanted=collectorNorm(collector.full),hits=[];
+  for(const m of bestBySet){
+    try{
+      const cards=arrayFromApi(await req(API+"/85/sets/"+m.sid+"/cards",{},"Japan Set-Karten "+m.sid,true));
+      for(const p of cards){
+        const number=p.number??p.ext_number??"";
+        if(collectorNorm(number)!==wanted)continue;
+        const pid=p.id??p.product_id;
+        if(pid)hits.push({p,m,pid,number});
+      }
+    }catch(e){log("Japan Set-Karten "+m.sid+" fehlgeschlagen: "+e.message)}
+  }
+
+  const uniq=[...new Map(hits.map(x=>[String(x.pid),x])).values()].sort((a,b)=>b.m.score-a.m.score);
+  log("Japan Set+Nummer Treffer",uniq.slice(0,10).map(x=>({name:x.p.name,number:x.number,set:x.m.set.name||x.m.set.set_name,setCode:x.m.abbr,score:x.m.score,product_id:x.pid})));
+  if(uniq.length===1 || (uniq.length>1&&uniq[0].m.score-uniq[1].m.score>=22)){
+    const x=uniq[0];
+    return{kind:"tracking",id:85,score:99,method:"Japan Set-Code + Kartennummer",top:{product_id:x.pid,score:99,name:x.p.name,number:x.number,set_id:x.m.sid}}
+  }
+
+  try{
+    const ids=bestBySet.map(x=>x.sid);
+    const d=await req(API+"/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game_id:85,set_ids:ids,limit:12,image:apiImg})},"Scan Pokémon Japan Footer");
+    const exact=(d.results||[]).filter(x=>collectorNorm(x.number)===wanted).sort((a,b)=>Number(b.score||0)-Number(a.score||0));
+    if(exact.length){
+      const x=exact[0];
+      log("Japan Footer Bild+Nummer bestätigt",{name:x.name,number:x.number,score:x.score,set_id:x.set_id});
+      return{kind:"tracking",id:85,score:98,method:"Japan Set-Code + Kartennummer + Bild",top:x}
+    }
+  }catch(e){log("Japan Footer Scan fehlgeschlagen: "+e.message)}
+  return null
+}
+
 async function trackingPokemonByCollector(collector,text,setMatches=null){
-  if(!collector||!["numeric","slashFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130){
+  if(!collector||!["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(collector.kind)||(collector.confidence||0)<130){
     if(collector)log("Nummer-Treffer nicht streng genug für Direktwahl",collector);
     return null
   }
@@ -599,7 +672,7 @@ async function scanPokemonKnownSet(apiImg,setMatches,collector,evidenceText=""){
     const d=await req(API+"/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game_id:3,set_ids:ids,limit:10,image:apiImg})},"Scan Pokémon Set-Code");
     const rs=(d.results||[]).slice().sort((a,b)=>Number(b.score||0)-Number(a.score||0));
     if(!rs.length)return null;
-    if(collector&&["numeric","slashFuzzy","noisy3x3"].includes(collector.kind)&&(collector.confidence||0)>=130){
+    if(collector&&["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(collector.kind)&&(collector.confidence||0)>=130){
       const wanted=collectorNorm(collector.full);
       const exact=rs.filter(x=>collectorNorm(x.number)===wanted);
       if(exact.length){
@@ -753,7 +826,16 @@ function findCollector(text){
     found.push({full:a+"/"+b,local:a,total:b,confidence,kind:"slashFuzzy",separator:m[2]});
   }
 
-  // 3) Stark verrauschte 3/3-Nummern. iPhone OCR hängt bei kleinen
+  // 3) Slash als Punkt/Komma gelesen, z. B. "067.,066".
+  //    Gerade japanische Karten haben unten sehr kleine Nummern; Safari/Tesseract
+  //    erkennt den Slash dort oft als ein oder mehrere Satzzeichen.
+  for(const m of t.matchAll(/(?:^|[^\d])(\d{3})\s*(?:[.,;:·]\s*){1,3}(\d{3})(?!\d)/g)){
+    const a=m[1],b=m[2],ai=Number(a),bi=Number(b);
+    if(!(ai>0&&ai<1000&&bi>=10&&bi<1000))continue;
+    found.push({full:a+"/"+b,local:a,total:b,confidence:158,kind:"punctFuzzy",raw:m[0].trim()});
+  }
+
+  // 4) Stark verrauschte 3/3-Nummern. iPhone OCR hängt bei kleinen
   //    Sammler-Nummern oft noch 1-2 Ziffern an: 017/0738 -> 017/073.
   //    Das wird nur für exakt 3+3 Ziffern akzeptiert und bewusst hoch bewertet.
   for(const m of t.matchAll(/\b(\d{3})\s*([\/71IT])\s*(\d{3})\d{1,2}\b/g)){
@@ -762,7 +844,7 @@ function findCollector(text){
     found.push({full:a+"/"+b,local:a,total:b,confidence:168,kind:"noisy3x3",separator:m[2],raw:m[0]});
   }
 
-  // 4) Häufige Pokémon-Promo-/Subset-Nummern.
+  // 5) Häufige Pokémon-Promo-/Subset-Nummern.
   const knownPrefix=/^(?:GG|SV|XY|BW|SM|SWSH|TG|RC|PR|SH|DP|HGSS)$/;
   for(const m of t.matchAll(/\b([A-Z]{1,5})\s*(\d{1,3})\s*\/\s*([A-Z]{0,5})\s*(\d{1,3})\b/g)){
     const p1=m[1],n1=m[2],p2=m[3],n2=m[4];
@@ -771,7 +853,7 @@ function findCollector(text){
     found.push({full:p1+n1+"/"+p2+n2,local:p1+n1,total:p2+n2,confidence,kind:"prefixed"});
   }
 
-  // 5) O/0 und I/1/L-Verwechslungen als letzter Fallback.
+  // 6) O/0 und I/1/L-Verwechslungen als letzter Fallback.
   for(const m of t.matchAll(/\b([O0I1L]{0,2}[O0I1L\d]{2,4})\s*\/\s*([O0I1L]{0,2}[O0I1L\d]{2,4})\b/g)){
     const fix=v=>v.replace(/O/g,"0").replace(/[IL]/g,"1");
     const a=fix(m[1]),b=fix(m[2]);
@@ -1536,6 +1618,9 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   log("Sammler-Nummer Auswahl",{fine:fine.collector?.full||null,fineConfidence:fine.collector?.confidence||0,evidence:evidenceCollector?.full||null,evidenceConfidence:evidenceCollector?.confidence||0,winner:strongCollector?.full||null,winnerConfidence:strongCollector?.confidence||0});
 
   let matcherImg=apiImg;
+  const japanFooter=await pokemonJapanFooterRoute(evidenceText,strongCollector,matcherImg);
+  if(japanFooter)return japanFooter;
+
   const fineFrameIsTrusted=!!rect||!!(fine.collector&&(fine.collector.confidence||0)>=130);
   if(detailRect&&fineFrameIsTrusted){
     const mc=apiCrop(i,1,detailRect);
@@ -1632,7 +1717,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   log("OCR-Datenbanktreffer nicht sicher genug – globaler Bild-Matcher wird als letzter Fallback genutzt.");
   const r=await sg(3,matcherImg);
   if(r.top&&r.score>=72){
-    if(strongCollector&&["numeric","slashFuzzy","noisy3x3"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(r.top.number)!==collectorNorm(strongCollector.full)){
+    if(strongCollector&&["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(r.top.number)!==collectorNorm(strongCollector.full)){
       log("Globaler Bildtreffer wegen starker OCR-Nummer verworfen",{ocrNumber:strongCollector.full,matchName:r.top.name,matchNumber:r.top.number,matchScore:r.score});
     }else{
       return{kind:"tracking",id:3,score:r.score,method:"Bild-Match",top:r.top}
@@ -1640,7 +1725,7 @@ async function identifyPokemon(i,baseText,apiImg,scale=.96,rect=null){
   }
   const recent=await recentPokemonScan(matcherImg);
   if(recent?.top&&recent.score>=58){
-    if(strongCollector&&["numeric","slashFuzzy","noisy3x3"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(recent.top.number)!==collectorNorm(strongCollector.full)){
+    if(strongCollector&&["numeric","slashFuzzy","punctFuzzy","noisy3x3"].includes(strongCollector.kind)&&(strongCollector.confidence||0)>=130&&collectorNorm(recent.top.number)!==collectorNorm(strongCollector.full)){
       log("Recent-Set Treffer wegen starker OCR-Nummer verworfen",{ocrNumber:strongCollector.full,matchName:recent.top.name,matchNumber:recent.top.number,matchScore:recent.score});
     }else{
       log("Recent-Set Sieger",{score:recent.score,name:recent.top.name,product_id:recent.top.product_id});
