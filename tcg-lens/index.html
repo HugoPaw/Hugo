@@ -8,11 +8,11 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v34 · Japan Pre-Route + Multi-Crop</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v35 · Asian Footer First</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
-<div class="card"><div class="label">TCG</div><select id="game"><option value="auto">Auto erkennen</option><option value="3">Pokémon</option><option value="85">Pokémon Japan</option><option value="89">Riftbound</option><option value="68">One Piece</option><option value="71">Disney Lorcana</option><option value="86">Gundam</option><option value="1">Magic: The Gathering</option><option value="2">Yu-Gi-Oh!</option></select></div>
+<div class="card"><div class="label">TCG</div><select id="game"><option value="auto">Auto erkennen</option><option value="3">Pokémon</option><option value="85">Pokémon Japan / Korea</option><option value="89">Riftbound</option><option value="68">One Piece</option><option value="71">Disney Lorcana</option><option value="86">Gundam</option><option value="1">Magic: The Gathering</option><option value="2">Yu-Gi-Oh!</option></select></div>
 <div class="card"><div class="photo"><img id="preview"><div id="ph" class="ph"><b>Noch kein Foto</b>Karte möglichst gerade, mittig und groß fotografieren.</div></div><label class="btn primary" for="camera">📷 Foto von Karte machen</label><input id="camera" type="file" accept="image/*" capture="environment"><button id="again" class="btn secondary" style="display:none">Noch einmal fotografieren</button><div id="status" class="status"></div></div>
 <div id="result" class="card"><div class="res"><img id="cardImg"><div><div id="rGame" class="game"></div><div id="rName" class="name"></div><div id="rMeta" class="meta"></div><div id="rPrice" class="price"></div><div id="rSmall" class="small"></div><div id="rScore" class="small" style="margin-top:7px"></div><div id="psaBox" style="margin-top:10px;padding:9px 10px;border:1px solid #29323c;border-radius:10px;background:#0b0f13"><div class="small" style="display:flex;justify-content:space-between;gap:8px"><span>PSA 10 Last sold</span><b id="psa10">-</b></div><div class="small" style="display:flex;justify-content:space-between;gap:8px;margin-top:5px"><span>PSA 9 Last sold</span><b id="psa9">-</b></div><button id="psaLoad" class="btn secondary" style="font-size:12px;padding:9px 8px;margin-top:8px">PSA Last Sold laden</button><div id="psaNote" class="small" style="margin-top:5px">Quelle bei Treffer: <a id="psaSource" href="https://index.renaissos.com" target="_blank" style="color:#aeb8c3">Renaiss Index</a></div></div></div></div><div class="links"><a id="cmLink" class="btn secondary" target="_blank">Cardmarket</a><a id="tcgLink" class="btn secondary" target="_blank">TCGplayer</a><a id="ebayLink" class="btn secondary" target="_blank">eBay sold</a></div></div>
 <div class="card"><div class="label">Letzte Scans</div><div id="history" class="history"><span style="color:#73808c;font-size:13px">Noch keine Karten gescannt.</span></div><div id="historyTotal" class="historySummary" style="display:none"></div><div class="historyActions"><button id="exportCsv" class="btn secondary">CSV downloaden</button><button id="exportTxt" class="btn secondary">TXT downloaden</button></div><div class="historyHint">Karte gedrückt halten, um sie aus den letzten Scans zu entfernen.</div></div>
@@ -25,12 +25,12 @@
 (()=>{"use strict";
 const API="https://openapi.tcgtracking.com/v1";
 const TDX="https://api.tcgdex.net/v2";
-const G={1:"Magic",2:"Yu-Gi-Oh!",3:"Pokémon",85:"Pokémon Japan",68:"One Piece",71:"Lorcana",86:"Gundam",89:"Riftbound"};
+const G={1:"Magic",2:"Yu-Gi-Oh!",3:"Pokémon",85:"Pokémon Japan/Korea",68:"One Piece",71:"Lorcana",86:"Gundam",89:"Riftbound"};
 const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v34 Japan Pre-Route + Multi-Crop",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v35 Asian Footer First",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -396,9 +396,57 @@ function japaneseCollectorFromFooter(text){
   };
   for(const m of u.matchAll(/(?:^|[^\d])(\d{3})\s*[\/,.;:]\s*(\d{3})(?!\d)/g))add(m[1],m[2],m[0],194);
   for(const m of u.matchAll(/(?:^|[^\d])\d?(\d{3})\s*[\/,.;:]\s*(\d{3})\d?(?!\d)/g))add(m[1],m[2],m[0],184);
+  // Beispiele aus realen iPhone-Fotos: "HABELI067/066]AR", "BR 067,0661aRY".
+  for(const m of u.matchAll(/([A-Z]{0,8})\s*(\d{3})\s*[\/,.;:]\s*(\d{3})(?:[A-Z]{0,8})/g))add(m[2],m[3],m[0],190);
   hits.sort((a,b)=>b.confidence-a.confidence);
   return hits[0]||null
 }
+async function asianFooterEvidence(i,rect,baseText=""){
+  const frames=[],seen=new Set();
+  const addFrame=(label,r)=>{
+    if(!r)return;
+    const k=[Math.round(r.x),Math.round(r.y),Math.round(r.w),Math.round(r.h)].join(":");
+    if(seen.has(k))return;seen.add(k);frames.push({label,rect:r});
+  };
+  if(rect)addFrame("Auto-Rahmen",rect);
+  for(const sc of [.84,.76,.68])addFrame("Center "+Math.round(sc*100)+"%",centeredCardRect(i,sc));
+
+  const texts=[String(baseText||"")];
+  const attempts=[];
+  for(const f of frames){
+    const regs=[
+      {name:"Footer Mitte",x0:.00,y0:.80,x1:.78,y1:.965,mode:"raw"},
+      {name:"Footer Kontrast",x0:.00,y0:.80,x1:.78,y1:.965,mode:"contrast"},
+      {name:"Footer Tief",x0:.00,y0:.86,x1:.82,y1:.995,mode:"raw"}
+    ];
+    for(const r of regs){
+      let t="";
+      try{
+        t=await ocr(
+          rawRegion(i,f.rect,r.x0,r.y0,r.x1,r.y1,2200,r.mode),
+          "OCR Asien-Footer "+f.label+" "+r.name,
+          {tessedit_pageseg_mode:6,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/.- "}
+        );
+      }catch(e){log("Asien-Footer OCR fehlgeschlagen: "+e.message)}
+      if(t)texts.push(t);
+      const merged=texts.join("\n");
+      const codes=japanesePrintedSetCodes(merged);
+      const collector=japaneseCollectorFromFooter(merged)||findCollector(merged);
+      attempts.push({frame:f.label,region:r.name,text:t.slice(0,260),codes,collector:collector?.full||null,confidence:collector?.confidence||0});
+      if(codes.length&&collector&&(collector.confidence||0)>=130){
+        const evidence=merged;
+        log("Asien-Footer EXAKT gelesen",{codes,collector,frame:f.label,region:r.name});
+        return{evidence,codes,collector,attempts}
+      }
+    }
+  }
+  const evidence=texts.join("\n");
+  const codes=japanesePrintedSetCodes(evidence);
+  const collector=japaneseCollectorFromFooter(evidence)||findCollector(evidence);
+  log("Asien-Footer Auswertung",{codes,collector,attempts});
+  return{evidence,codes,collector,attempts}
+}
+
 async function pokemonJapanFooterRoute(text,collector,apiImg){
   const codes=japanesePrintedSetCodes(text);
   if(!codes.length)return null;
@@ -1889,24 +1937,36 @@ async function scanAuto(i,apiImg,baseText,scale=.96,rect=null){
     return await identifyPokemon(i,baseText,apiImg,scale,rect);
   }
 
-  // Bei japanischen Karten ist englisches OCR oft praktisch leer. Deshalb die
-  // Schrift erkennen, BEVOR acht unterschiedliche TCG-Bildmatcher gegeneinander
-  // raten. Die japanische OCR liest zusätzlich häufig Set-/Kartennummern mit.
+  // Japanische UND koreanische Pokémon-Karten tragen unten oft denselben
+  // lateinischen Set-Code + Sammler-Nummer (z.B. SV5a 067/066).
+  // Diese Information ist viel zuverlässiger als ein globaler Bildvergleich.
+  const asianFooter=await asianFooterEvidence(i,rect,baseText);
+  if(asianFooter.codes.length&&asianFooter.collector&&(asianFooter.collector.confidence||0)>=130){
+    const exactAsian=await pokemonJapanFooterRoute(asianFooter.evidence,asianFooter.collector,apiImg);
+    if(exactAsian){
+      exactAsian.method="Asien Set-Code + Kartennummer";
+      log("Auto-Routing → Pokémon Japan/Korea (Footer)",{codes:asianFooter.codes,collector:asianFooter.collector.full,name:exactAsian.top?.name,number:exactAsian.top?.number});
+      return exactAsian;
+    }
+  }
+
+  // Falls der Footer nicht vollständig lesbar war, Schriftprobe als zweiter Weg.
   const jpProbe=await japaneseLanguageProbe(apiImg);
   if(jpProbe.ok&&jpProbe.isJapanese){
-    const jpEvidence=[baseText,jpProbe.text].filter(Boolean).join("\n");
-    log("Auto-Routing → Pokémon Japan (japanische Schrift)",{japaneseChars:jpProbe.count,kana:jpProbe.kana});
+    const jpEvidence=[asianFooter.evidence,jpProbe.text].filter(Boolean).join("\n");
+    log("Auto-Routing → Pokémon Japan/Korea (asiatische Schrift)",{japaneseChars:jpProbe.count,kana:jpProbe.kana});
 
     const footerCollector=japaneseCollectorFromFooter(jpEvidence)||findCollector(jpEvidence);
     const exactFooter=await pokemonJapanFooterRoute(jpEvidence,footerCollector,apiImg);
-    if(exactFooter)return exactFooter;
+    if(exactFooter){
+      exactFooter.method="Asien Footer + Sprachprobe";
+      return exactFooter;
+    }
 
     const multi=await scanJapaneseMultiCrop(i,rect,apiImg,scale,jpEvidence);
     if(multi)return multi;
 
-    // Sprache ist hier bereits sicher erkannt. Nicht mehr auf Magic/YGO/etc.
-    // zurückfallen, weil deren niedrige Bildscores nur Rauschen erzeugen.
-    throw new Error("Pokémon Japan erkannt, aber die konkrete Karte ist noch nicht stabil genug erkannt. Bitte Karte etwas größer und gerade fotografieren.");
+    throw new Error("Pokémon Japan/Korea erkannt, aber die konkrete Karte ist noch nicht stabil genug erkannt. Bitte Karte etwas größer und gerade fotografieren.");
   }
 
   const rs=await Promise.all(AUTO.map(id=>sg(id,apiImg)));
