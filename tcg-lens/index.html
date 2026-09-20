@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px;-webkit-user-drag:none}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.historySummary{margin-top:12px;padding:11px 12px;border-radius:12px;background:#0b0f13;border:1px solid #29323c;font-size:14px;font-weight:850;color:#e9eef3}.historyActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.historyActions .btn{font-size:13px;padding:12px 8px;margin:0}.historyHint{font-size:11px;color:#73808c;margin-top:8px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v60 · Number First</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v61 · Tight Title + Number</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -30,7 +30,7 @@ const AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
 function log(m,o){let x="["+new Date().toLocaleTimeString()+"] "+m;if(o!==undefined){try{x+="\n"+JSON.stringify(o,null,2)}catch{}}L.push(x);if(L.length>220)L.shift();$("#logbox").textContent=L.join("\n");console.log(m,o||"")}
 window.onerror=(m,u,l,c)=>log("WINDOW ERROR: "+m,{u,l,c});
 window.onunhandledrejection=e=>log("PROMISE ERROR: "+(e.reason?.message||e.reason));
-log("JavaScript läuft.",{version:"v60 Number First",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
+log("JavaScript läuft.",{version:"v61 Tight Title + Number",url:location.href,online:navigator.onLine,userAgent:navigator.userAgent});
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$("#"+b.dataset.tab).classList.add("active")});
 function st(m,e=false,spin=false){const x=$("#status");x.style.display="block";x.className="status"+(e?" err":"");x.innerHTML=(spin?'<span class="spin"></span>':'')+m}
 async function image(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image;i.onload=()=>{URL.revokeObjectURL(u);ok(i)};i.onerror=no;i.src=u})}
@@ -2631,33 +2631,31 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
 
   const titleAttempts=[];
 
-  // Read the title from two stable top bands.
-  const titleFrames=unique([
-    frames.find(x=>x.label==="Bild"),
-    frames.find(x=>x.label==="Auto"),
-    frames.find(x=>x.label==="Center 84%")
-  ].filter(Boolean));
-  for(const f of titleFrames.slice(0,2)){
+  // v61: the title is a short line near the upper-left of a centered card.
+  // Small full-photo windows are dramatically cleaner than OCRing the whole upper quarter.
+  const full=frames.find(x=>x.label==="Bild");
+  const titleTries=[
+    {label:"Bild Titel eng",x0:.11,y0:.055,x1:.62,y1:.19,w:2800,mode:"contrast",psm:7},
+    {label:"Bild Titel breit",x0:.07,y0:.035,x1:.72,y1:.22,w:2600,mode:"raw",psm:11},
+    {label:"Auto Titel",frame:frames.find(x=>x.label==="Auto"),x0:.00,y0:.00,x1:.88,y1:.16,w:2400,mode:"contrast",psm:7}
+  ];
+
+  for(const q of titleTries){
+    const fr=q.frame||full;
+    if(!fr)continue;
     let t="";
     try{
-      const isFull=f.label==="Bild";
       t=await ocr(
-        rawRegion(
-          i,f.rect,
-          isFull ? .06 : .02,
-          isFull ? .055 : .00,
-          isFull ? .86 : .92,
-          isFull ? .23 : .18,
-          isFull?2600:2200,
-          "raw"
-        ),
-        "OCR Titel "+f.label,
-        {tessedit_pageseg_mode:isFull?11:6}
+        rawRegion(i,fr.rect,q.x0,q.y0,q.x1,q.y1,q.w,q.mode),
+        "OCR Titel "+q.label,
+        {tessedit_pageseg_mode:q.psm}
       );
-    }catch(e){log("Titel OCR "+f.label+" fehlgeschlagen: "+e.message)}
+    }catch(e){log("Titel OCR "+q.label+" fehlgeschlagen: "+e.message)}
     if(t){
       titleEvidence+="\n"+t;
-      titleAttempts.push({frame:f.label,text:t.slice(0,300)});
+      titleAttempts.push({frame:q.label,text:t.slice(0,300)});
+      // Two useful title reads are enough.
+      if(titleAttempts.length>=2)break;
     }
   }
 
@@ -2674,12 +2672,14 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
   // The normal full-card OCR may already contain the footer, including slashless
   // OCR such as "20641913" for printed "206/191".
   rememberNumber(pokemonLooseNumber(titleEvidence));
-  // The selected Auto frame is already the expanded card frame from run().
-  // Read its tiny bottom-left footer FIRST; this is much cleaner than a broad image crop.
+  // v61: target the printed collector number itself instead of a huge "footer".
+  // The card is normally centered in a portrait photo; try two tight full-image windows
+  // around bottom-left first, then fall back to the auto frame.
   const numberTries=[
-    {label:"Auto Footer",frame:frames.find(x=>x.label==="Auto"),x0:.00,y0:.83,x1:.58,y1:.985,w:3000,mode:"contrast",psm:6},
-    {label:"Auto Footer RAW",frame:frames.find(x=>x.label==="Auto"),x0:.00,y0:.83,x1:.58,y1:.985,w:3000,mode:"raw",psm:6},
-    {label:"Bild Footer",frame:frames.find(x=>x.label==="Bild"),x0:.10,y0:.745,x1:.48,y1:.865,w:3000,mode:"contrast",psm:11}
+    {label:"Bild Nummer eng",frame:frames.find(x=>x.label==="Bild"),x0:.12,y0:.755,x1:.39,y1:.875,w:3600,mode:"contrast",psm:7},
+    {label:"Bild Nummer eng RAW",frame:frames.find(x=>x.label==="Bild"),x0:.12,y0:.755,x1:.39,y1:.875,w:3600,mode:"raw",psm:7},
+    {label:"Bild Nummer breit",frame:frames.find(x=>x.label==="Bild"),x0:.07,y0:.72,x1:.48,y1:.90,w:3400,mode:"contrast",psm:11},
+    {label:"Auto Nummer",frame:frames.find(x=>x.label==="Auto"),x0:.00,y0:.84,x1:.42,y1:.98,w:3400,mode:"contrast",psm:7}
   ].filter(x=>x.frame);
 
   for(const t of numberTries){
@@ -2703,6 +2703,22 @@ async function pokemonTitleNumberOnly(i,baseText,rect){
   if(!numberCandidates.length){
     log("Titel+Nummer: keine lokale Kartennummer gelesen");
     return null;
+  }
+
+  // Dedicated footer OCR is more trustworthy than title OCR. Confirm every strong
+  // localId/set-size pair directly against TCGdex before doing fuzzy title work.
+  for(const n of numberCandidates){
+    const strong =
+      n.kind==="numeric" ||
+      n.kind==="punctFuzzy" ||
+      (n.kind==="noisy3x3"&&String(n.local).length===3&&String(n.total).length===3);
+    if(!strong)continue;
+    const c={...n,full:n.full||n.local+"/"+n.total};
+    const locked=await pokemonCollectorTotalLock(c,titleEvidence);
+    if(locked){
+      log("NUMMER NACH FOOTER SIEGER",{name:locked.card?.name,localId:locked.card?.localId,set:locked.card?.set?.name,number:c.full});
+      return locked
+    }
   }
 
   // TITLE FIRST:
