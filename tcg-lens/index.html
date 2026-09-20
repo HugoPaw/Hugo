@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#090c10;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:760px;margin:auto;padding:16px 14px 44px}.head{display:flex;justify-content:space-between;gap:12px}.title{font-size:29px;font-weight:900;margin:4px 0}.sub{color:#94a0ad;margin:0 0 14px}.badge{font-size:11px;padding:7px 9px;border-radius:999px;border:1px solid #31572b;background:#132113;color:#c7ffb3;height:max-content}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.tab{border:1px solid #27303a;background:#11161c;color:#aeb8c3;border-radius:12px;padding:12px;font-size:15px;font-weight:800}.tab.active{background:#eef2f5;color:#0b0e11}.panel{display:none}.panel.active{display:block}.card{background:#11161c;border:1px solid #27303a;border-radius:18px;padding:14px;margin-bottom:13px}.label{font-size:12px;color:#8592a0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:800}select{width:100%;background:#0c1015;color:#eef3f7;border:1px solid #303a45;border-radius:11px;padding:12px;font-size:15px}.photo{min-height:350px;border:1px dashed #35414c;border-radius:15px;overflow:hidden;background:#07090c;display:flex;align-items:center;justify-content:center}.photo img{display:none;width:100%;max-height:590px;object-fit:contain}.ph{text-align:center;padding:42px 24px;color:#8793a0}.ph b{display:block;font-size:20px;color:#e5ebf0;margin-bottom:8px}.btn{appearance:none;border:0;border-radius:14px;padding:15px 14px;width:100%;font-size:17px;font-weight:850;display:flex;justify-content:center;align-items:center;text-decoration:none;cursor:pointer}.primary{background:#f1f4f6;color:#0b0e11;margin-top:11px}.secondary{background:#20272e;color:#f2f5f7;margin-top:9px;border:1px solid #303944}input[type=file]{display:none}.status{display:none;margin-top:11px;border-radius:12px;padding:11px 12px;font-size:14px;border:1px solid #294a31;background:#111f16;color:#c8f5d0}.status.err{border-color:#5a2a30;background:#241416;color:#ffbdc2}.spin{display:inline-block;width:15px;height:15px;border:2px solid #4e5a66;border-top-color:white;border-radius:50%;animation:s .9s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes s{to{transform:rotate(360deg)}}#result{display:none}.res{display:grid;grid-template-columns:118px 1fr;gap:13px}.res img{width:118px;aspect-ratio:.714;object-fit:cover;border-radius:10px;background:#080b0e}.game{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#83909d}.name{font-size:22px;font-weight:900;line-height:1.12;margin:3px 0 5px}.meta{font-size:13px;color:#a4aeba}.price{font-size:32px;font-weight:900;margin-top:12px}.small{font-size:12px;color:#8c98a5}.links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.links .btn{font-size:13px;padding:12px 8px;margin:0}.history{display:flex;overflow:auto;gap:9px}.h{min-width:105px;background:#0b0f13;border:1px solid #242d36;border-radius:12px;padding:8px}.h img{width:100%;aspect-ratio:.714;object-fit:cover;border-radius:7px}.hn{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:6px}.hp{font-size:11px;color:#a0aab4;margin-top:2px}.logintro{font-size:13px;color:#aab4be;line-height:1.45;margin-bottom:10px}pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid #27313b;border-radius:13px;min-height:320px;max-height:580px;overflow:auto;padding:11px;color:#c0c9d2;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.logBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.logBtns .btn{font-size:13px;padding:12px}
 </style></head><body><div class="wrap">
-<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">Web-App aktiv</div></div>
+<div class="head"><div><div class="title">TCG Lens</div><p class="sub">Foto machen → Karte erkennen → Marktpreis anzeigen.</p></div><div id="badge" class="badge">v2 · OCR Auto</div></div>
 <div class="tabs"><button class="tab active" data-tab="scan">Scanner</button><button class="tab" data-tab="logs">Logs</button></div>
 
 <section id="scan" class="panel active">
@@ -20,6 +20,7 @@
 
 <section id="logs" class="panel"><div class="card"><div class="logintro">Falls etwas schiefgeht: Screenshot von diesem Tab schicken. Hier stehen Foto-, Scan-, API- und Preisfehler.</div><pre id="logbox"></pre><div class="logBtns"><button id="apiTest" class="btn secondary">API testen</button><button id="copyLogs" class="btn secondary">Logs kopieren</button></div></div></section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
 (()=>{"use strict";
 const API="https://openapi.tcgtracking.com/v1",G={1:"Magic",2:"Yu-Gi-Oh!",3:"Pokémon",85:"Pokémon Japan",68:"One Piece",71:"Lorcana",86:"Gundam",89:"Riftbound"},AUTO=[3,85,89,68,71,86,1,2],$=s=>document.querySelector(s),L=[];
@@ -32,7 +33,51 @@ async function image(file){return new Promise((ok,no)=>{const u=URL.createObject
 function crop(i){const r=.7142857;let w=i.naturalWidth,h=i.naturalHeight;if(w/h>r)w=h*r;else h=w/r;w*=.92;h*=.92;const c=document.createElement("canvas");c.width=420;c.height=588;c.getContext("2d").drawImage(i,(i.naturalWidth-w)/2,(i.naturalHeight-h)/2,w,h,0,0,420,588);for(const q of [.7,.6,.5,.42,.34,.27,.21]){const d=c.toDataURL("image/jpeg",q),bytes=Math.floor((d.split(",")[1]||"").length*3/4);if(bytes<94000)return{d,bytes,q}}return{d:c.toDataURL("image/jpeg",.18),bytes:0,q:.18}}
 async function req(url,opt={},label="API"){log(label+" → "+url);let r;try{r=await fetch(url,opt)}catch(e){throw new Error(label+" Netzwerk/CORS: "+e.message)}const t=await r.text();let d;try{d=JSON.parse(t)}catch{d={raw:t.slice(0,1000)}}log(label+" ← "+r.status,d);if(!r.ok)throw new Error(label+" HTTP "+r.status);return d}
 async function sg(id,img){try{const d=await req(API+"/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game_id:id,limit:5,image:img})},"Scan "+G[id]);const top=d.results?.[0];return{id,top,score:Number(top?.score||0)}}catch(e){log("Scanfehler "+G[id]+": "+e.message);return{id,score:-1}}}
-async function scanAuto(img){const rs=await Promise.all(AUTO.map(id=>sg(id,img)));return rs.filter(x=>x.top).sort((a,b)=>b.score-a.score)[0]||null}
+async function detectGameOCR(img){
+  if(!window.Tesseract){log("OCR-Bibliothek nicht geladen – sicherer Fallback.");return null}
+  try{
+    st("Kartenspiel wird aus dem Foto erkannt …",false,true);
+    log("OCR startet.");
+    const r=await Tesseract.recognize(img,"eng",{logger:m=>{if(m.status==="recognizing text"&&Math.round((m.progress||0)*100)%25===0)log("OCR "+Math.round((m.progress||0)*100)+" %")}});
+    const t=(r?.data?.text||"").toLowerCase();
+    log("OCR-Text",t.slice(0,1600));
+    const tests=[
+      {id:3,re:/pok[eé]mon|vmax|vstar|trainer|energy|entwickelt sich|schw[aä]che|r[uü]ckzug|angriff|kp\b/i},
+      {id:2,re:/atk\s*\/|def\s*\/|spell card|trap card|effect monster|fusion monster|synchro monster|xyz monster/i},
+      {id:1,re:/creature\b|instant\b|sorcery\b|enchantment\b|planeswalker\b|artifact\b|summon\b/i},
+      {id:68,re:/don!!|leader\b|character\b|counter\b/i},
+      {id:71,re:/storyborn|dreamborn|floodborn|inkwell|\blore\b/i},
+      {id:89,re:/riftbound|battlefield|\bmight\b|\brune\b/i},
+      {id:86,re:/gundam|mobile suit|\bpilot\b/i}
+    ];
+    for(const x of tests){if(x.re.test(t)){log("OCR erkennt TCG",{game:G[x.id]});return x.id}}
+    log("OCR konnte TCG nicht sicher bestimmen.");
+    return null;
+  }catch(e){log("OCR fehlgeschlagen: "+e.message);return null}
+}
+async function scanAuto(img){
+  const hinted=await detectGameOCR(img);
+  if(hinted){
+    let r=await sg(hinted,img);
+    if(r.top&&r.score>=35){log("OCR-TCG bestätigt durch Bild-Match",{game:G[hinted],score:r.score});return r}
+    if(hinted===3){
+      const jp=await sg(85,img);
+      if(jp.top&&jp.score>r.score){log("Pokémon-JP war besser",{score:jp.score});return jp}
+    }
+    log("OCR-TCG hatte keinen brauchbaren Bildtreffer – kein blindes Cross-Game-Ergebnis.");
+    throw new Error("Das Kartenspiel wurde als "+G[hinted]+" erkannt, aber die konkrete Karte nicht sicher gefunden. Bitte Karte näher/gerader fotografieren.");
+  }
+  const rs=await Promise.all(AUTO.map(id=>sg(id,img)));
+  const sorted=rs.filter(x=>x.top).sort((a,b)=>b.score-a.score);
+  const best=sorted[0]||null,second=sorted[1]||null;
+  log("Cross-Game Kandidaten",sorted.map(x=>({game:G[x.id],score:x.score,product_id:x.top?.product_id})));
+  if(!best)return null;
+  const margin=best.score-(second?.score||0);
+  if(best.score<70||margin<8){
+    throw new Error("Kartenspiel nicht eindeutig erkannt. Bitte oben das TCG auswählen (z. B. Pokémon) und erneut fotografieren.");
+  }
+  return best
+}
 function prod(o){if(!o||typeof o!=="object")return null;if(o.product&&typeof o.product==="object")return o.product;if(o.id&&o.name)return o;if(Array.isArray(o)){for(const v of o){const p=prod(v);if(p)return p}}else for(const v of Object.values(o)){const p=prod(v);if(p)return p}return null}
 function prices(o,a=[]){if(!o||typeof o!=="object")return a;if(Array.isArray(o)){o.forEach(v=>prices(v,a));return a}for(const [k,v] of Object.entries(o)){if((k==="market"||k==="mkt")&&Number(v)>0)a.push(Number(v));else if(v&&typeof v==="object")prices(v,a)}return a}
 async function details(id){const d=await req(API+"/products/"+id,{},"Produkt "+id),p=prod(d),ps=prices(d).sort((a,b)=>a-b);if(!p)throw new Error("Produktdaten konnten nicht gelesen werden.");return{p,min:ps[0]||null,max:ps[ps.length-1]||null}}
